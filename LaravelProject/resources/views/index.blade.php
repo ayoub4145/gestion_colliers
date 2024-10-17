@@ -75,16 +75,16 @@
                     <a href="about.html" class="nav-item nav-link">About</a>
                     <a href="service.html" class="nav-item nav-link">Service</a>
                     <a href="price.html" class="nav-item nav-link">Price</a>
-                    <div class="nav-item dropdown">
+                    <!-- <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu rounded-0 m-0">
                             <a href="blog.html" class="dropdown-item">Blog Grid</a>
                             <a href="single.html" class="dropdown-item">Blog Detail</a>
                         </div>
-                    </div>
+                    </div> -->
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="" class="btn btn-primary py-2 px-4 d-none d-lg-block">Get A Quote</a>
+                <a href="" class="btn btn-primary py-2 px-4 d-none d-lg-block">Login</a>
             </div>
         </nav>
     </div>
