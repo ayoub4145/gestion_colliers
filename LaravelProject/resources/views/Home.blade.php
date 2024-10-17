@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Deliver - Free Courier Website Template</title>
+  <title>Livraison de colis à domicile et en points relais au Maroc</title>
 
   <link rel="stylesheet" type="text/css" href="css/vendor.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -20,40 +20,56 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jost&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-          /* Conteneur pour les éléments de la navigation */
-      .nav-container {
-        display: flex;
-        justify-content: center; /* Centre les éléments horizontalement */
-        list-style-type: none;   /* Retire les puces des listes */
-        padding: 0;
-        margin: 0;
-      }
-
-      /* Style pour les éléments de la liste */
-      .nav-list {
-        margin: 0 15px; /* Espacement horizontal entre les éléments */
-      }
-
-      /* Style pour les liens de navigation */
-      .nav-link {
-        text-decoration: none; /* Retire le soulignement des liens */
-        color: inherit;        /* Utilise la couleur par défaut du texte */
-      }
-
-      /* Conteneur du scooter */
-.scooter-container {
-  position: relative;
-  overflow: hidden; /* Masquer l'image quand elle sort de la zone visible */
+      body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-/* Initialisation de l'image du scooter en dehors de l'écran (à gauche) */
-#scooter {
-            position: absolute; /* Permet de déplacer l'élément */
-            left: 0; /* Commence à gauche */
-            top: 50%; /* Centre verticalement */
-            transform: translateY(-50%); /* Ajuste l'alignement vertical */
-            transition: left 2s; /* Durée de l'animation */
-        }
+/* Styles pour la barre de navigation */
+.nav-container {
+    display: flex;
+    list-style-type: none;
+    padding: 10px 20px;
+    background-color: #333; /* Couleur d'arrière-plan de la barre de navigation */
+}
+
+/* Styles pour les liens de navigation */
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+/* Effet de survol */
+.nav-link:hover {
+    background-color: #555; /* Couleur d'arrière-plan lors du survol */
+}
+
+/* Styles pour les formulaires */
+.form-label {
+    font-weight: bold;
+}
+
+.modal-header {
+    border-bottom: none; /* Supprime la bordure en bas du modal */
+}
+
+.tabs-listing {
+    margin-top: 20px; /* Espacement supérieur */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Couleur de fond des boutons */
+    border: none; /* Supprime la bordure par défaut */
+}
+
+.btn-close {
+    background-color: transparent; /* Arrière-plan transparent pour le bouton de fermeture */
+}
+
   </style>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -64,7 +80,6 @@
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navbar-example2" tabindex="0">
-<button id="play-sound">Play Horn Sound</button>
 
 <audio id="horn-sound" src="/car-horns-153261.mp3"></audio>
 
@@ -78,7 +93,7 @@
                 console.log("Scooter element found!");
 
                 // Déplace le scooter vers la droite
-                scooter.style.left = "100%"; // Déplace à droite
+                // scooter.style.left = "100%"; // Déplace à droite
               if(hornSound){
                 
                 console.log('horn sound is found !');
@@ -106,6 +121,8 @@
             startScooterAnimation();
         });
     </script>
+        <!-- <button id="play-sound">Play Horn Sound</button> -->
+
   <!-- Navigation Section Starts -->
   <section id="navigation-bar" class="navigation position-fixed">
 
@@ -113,11 +130,11 @@
 
       <div class="navigation container-fluid d-flex flex-wrap align-items-center my-2 pe-4 ps-5 ">
 
-        <!-- <div class="col-md-3 brand-logo">
+        <div class="col-md-3 brand-logo">
           <a href="#" class="d-inline-flex link-body-emphasis text-decoration-none">
             <img src="images/Deliver.png" alt="">
           </a>
-        </div> -->
+        </div>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2"
           aria-controls="offcanvasNavbar2" aria-label="Toggle navigation"><ion-icon
@@ -154,6 +171,7 @@
         </a>
       </li>
     </ul>
+
 
             <div class="account d-flex align-items-center mt-5 mt-lg-0 justify-content-center justify-content-lg-end">
               <!-- Modal -->
@@ -245,6 +263,7 @@
                   </div>
                 </div>
               </div>
+              
               <button type="button" class="btn btn-primary first-button signup px-4 py-3" data-bs-toggle="modal"
                 data-bs-target="#exampleModal2">Sign up</button>
               <!-- Modal -->
