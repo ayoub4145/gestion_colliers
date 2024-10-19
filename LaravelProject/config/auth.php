@@ -40,6 +40,20 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+       'client' => [
+        'driver' => 'session', // Auth driver (ici, "session" pour une authentification basée sur les sessions)
+        'provider' => 'clients', // Référence le provider de clients ci-dessous
+    ],
+
+    'admin' => [
+        'driver' => 'session',
+        'provider' => 'admins',
+    ],
+
+    'livreur' => [
+        'driver' => 'session',
+        'provider' => 'livreurs',
+    ],
     ],
 
     /*
@@ -63,6 +77,20 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+        'clients' => [
+            'driver' => 'eloquent', // Ici on utilise Eloquent comme driver
+            'model' => App\Models\Client::class, // Spécifie le modèle Client
+        ],
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+
+        'livreurs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Livreur::class,
         ],
 
         // 'users' => [

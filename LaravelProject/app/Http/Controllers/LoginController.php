@@ -1,87 +1,84 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
 
-
-    // Affiche le formulaire de connexion
-    public function showLoginForm()
-    {
+    public function showLoginForm(){
         return view('Login');
     }
-
-    // Traite la requête de connexion
     public function login(Request $request)
     {
-        $this->validateLogin($request);
+        $userType = $request->input('user_type');  // Récupérer le type d'utilisateur
 
-        // Tentative de connexion
-        if (Auth::attempt($this->credentials($request), $request->filled('remember'))) {
-            $request->session()->regenerate();
+        switch ($userType) {
+            case 'client':
+                // Authentification pour client
+                return $this->clientLogin($request);
+            case 'admin':
+                // Authentification pour admin
+                return $this->adminLogin($request);
+            case 'livreur':
+                // Authentification pour livreur
+                return $this->livreurLogin($request);
+            default:
+                return redirect()->back()->withErrors(['error' => 'Type d’utilisateur non reconnu']);
+        }
+    }
 
-            return $this->authenticated($request, Auth::user())
-                ?: redirect()->intended($this->redirectPath());
+    // Méthodes pour chaque type d'authentification
+    protected function clientLogin(Request $request)
+{
+    // Valider les champs email et password
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|string|min:4',
+    ]);
+
+    // Récupérer les credentials (email et password)
+    $credentials = $request->only('email', 'password');
+
+    // Tenter l'authentification en utilisant le guard client
+    if (Auth::guard('client')->attempt($credentials)) {
+        // Redirection vers le tableau de bord après une authentification réussie
+        return redirect()->intended('/client/dashboard');
+    }
+
+    // Si l'authentification échoue, retourner une erreur
+    return back()->withErrors([
+        'email' => 'Les informations d’identification ne correspondent pas ou le compte n\'existe pas.',
+    ])->withInput($request->except('password')); // Conserve l'email mais pas le mot de passe
+}
+
+    protected function adminLogin($request)
+    {
+        $admin = config('admin');
+
+        if ($request->email === $admin['email'] && Hash::check($request->password, $admin['password'])) {
+            // Stocke l'authentification dans la session
+            session(['admin' => true]);
+            return redirect('/admin/dashboard');
         }
 
-        // Si la connexion échoue, on renvoie une erreur
-        throw ValidationException::withMessages([
-            $this->username() => [trans('auth.failed')],
+        return back()->withErrors(['email' => 'Identifiants incorrects']);    }
+
+    protected function livreurLogin($request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::guard('livreur')->attempt($credentials)) {
+            return redirect()->intended('/livreur/dashboard');
+        }
+
+        return back()->withErrors([
+            'email' => 'Les informations d’identification ne correspondent pas.',
         ]);
-    }
-
-    // Valide les champs de connexion
-    protected function validateLogin(Request $request)
-    {
-        $request->validate([
-            $this->username() => 'required|string',
-            'password' => 'required|string',
-        ]);
-    }
-
-    // Retourne le champ utilisé pour la connexion
-    public function username()
-    {
-        return 'email';  // Par défaut, on utilise l'email pour le login
-    }
-
-    // Crédentials pour la connexion
-    protected function credentials(Request $request)
-    {
-        return $request->only($this->username(), 'password');
-    }
-
-    // Méthode appelée après une connexion réussie
-    protected function authenticated(Request $request, $user)
-    {
-        // Optionnel : ajouter des actions après connexion (log, notifications, etc.)
-    }
-
-    // Redirection après connexion réussie
-    protected function redirectPath()
-    {
-        return '/dashboard'; // Modifie cette route si nécessaire
-    }
-
-    // Déconnexion de l'utilisateur
-    public function logout(Request $request)
-    {
-        Auth::logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/login');
-    }
-
-    // Utilisation du guard spécifique pour cette méthode
-    protected function guard()
-    {
-        return Auth::guard();
-    }
+        }
 }
