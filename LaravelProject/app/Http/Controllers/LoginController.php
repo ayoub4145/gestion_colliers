@@ -4,6 +4,8 @@ namespace App\Http\Controllers; // Définition de l'espace de noms pour le contr
 
 use App\Http\Controllers\Controller; // Inclusion de la classe Controller de Laravel
 use App\Models\Admin; // Inclusion du modèle Admin
+use App\Models\Client;
+use App\Models\Livreur;
 use Illuminate\Http\Request; // Inclusion de la classe Request de Laravel
 use Illuminate\Support\Facades\Auth; // Inclusion du façade Auth pour gérer l'authentification
 use Illuminate\Support\Facades\Hash; // Inclusion du façade Hash pour le hachage de mot de passe

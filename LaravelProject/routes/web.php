@@ -4,9 +4,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\LivreurController;
 use App\Http\Controllers\AdminController;
-
-
-
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
@@ -14,6 +12,8 @@ Route::get('/', function () {
 // Afficher le formulaire de login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('LoginForm');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/s_inscrire',[RegisterController::class,'showRegisterForm'])->name('RegisterForm');
+Route::post('/s_inscrire',[RegisterController::class,'register'])->name('register');
 
 // Route::post('login', [LoginController::class, 'login'])->name('login');
 // Route::get('/clientDashboard',[LoginController::class,'showDashClient'])->name('dashClient');
