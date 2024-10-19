@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AdminSeeder extends Seeder
@@ -13,13 +14,9 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = [
-            'name' => 'Admin',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
-        ];
-
-        // Stocke ces informations dans une configuration
-        config(['admin' => $admin]);
+        DB::table('admins')->insert([
+            'email'=>"admin@example.com",
+            'password'=>bcrypt('admin123'),
+        ]);
     }
 }
