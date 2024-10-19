@@ -17,6 +17,7 @@ class ClientSeeder extends Seeder
         DB::table('clients')->insert([
             'nom'=>'Berhili',
             'prenom'=>'Ayoub',
+            'adresse'=>'Oujda,Maroc',
             'email'=>'ayoubberhili@gmail.com',
             'telephone'=>'0661234567',
             'password'=>Hash::make('ayoub')

@@ -12,34 +12,38 @@
     <x-NavBar/>
 <form class="form" method="POST" action="{{ route('register') }}">
     <p class="title">Register </p>
-    <p class="message">Signup now and get full access to our app. </p>
+    {{-- <p class="message">Signup now and get full access to our app. </p> --}}
         <div class="flex">
         <label>
             <input class="input" type="text" placeholder="" required="">
-            <span>Firstname</span>
+            <span>Prénom</span>
         </label>
 
         <label>
             <input class="input" type="text" placeholder="" required="">
-            <span>Lastname</span>
+            <span>Nom</span>
         </label>
     </div>
-
+    <label>
+        <input class="input" type="text" placeholder="" required="">
+        <span>Adresse</span>
+    </label>
     <label>
         <input class="input" type="email" placeholder="" required="">
         <span>Email</span>
     </label>
-
+    <label>
+        <input class="input" type="tel" placeholder="" required="">
+        <span>Téléphone</span>
+    </label>
     <label>
         <input class="input" type="password" placeholder="" required="">
         <span>Password</span>
     </label>
-    <label>
-        <input class="input" type="password" placeholder="" required="">
-        <span>Confirm password</span>
-    </label>
+
+
     <button class="submit">Submit</button>
-    <p class="signin">Already have an acount ? <a href="{{ route('login') }}">Signin</a> </p>
+    <p class="signin">Vous avez déja un compte ? <a href="{{ route('login') }}">Se connecter</a> </p>
 </form>
 </body>
 </html>

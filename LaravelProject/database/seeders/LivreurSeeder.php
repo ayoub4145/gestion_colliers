@@ -16,6 +16,7 @@ class LivreurSeeder extends Seeder
         DB::table('livreurs')->insert([
             'nom'=>'Glovo',
             'prenom'=>'glovo',
+            'adresse'=>'Paris,France',
             'email'=>'glovo@gmail.com',
             'password'=>bcrypt('glovo'),
             'telephone'=>'123456789',

@@ -9,7 +9,7 @@ class Livreur extends Model
 {
 
     protected $fillable = [
-        'nom', 'email','password'
+        'nom','prenom','adresse', 'email','telephone','password'
     ];
 
     public function colis()
