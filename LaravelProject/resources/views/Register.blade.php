@@ -11,33 +11,34 @@
     <x-TopBar/>
     <x-NavBar/>
 <form class="form" method="POST" action="{{ route('register') }}">
+    @csrf
     <p class="title">Register </p>
     {{-- <p class="message">Signup now and get full access to our app. </p> --}}
         <div class="flex">
         <label>
-            <input class="input" type="text" placeholder="" required="">
+            <input class="input" type="text" name="prenom" placeholder="" required="">
             <span>Prénom</span>
         </label>
 
         <label>
-            <input class="input" type="text" placeholder="" required="">
+            <input class="input" type="text" name="nom" placeholder="" required="">
             <span>Nom</span>
         </label>
     </div>
     <label>
-        <input class="input" type="text" placeholder="" required="">
+        <input class="input" type="text" name="adresse" placeholder="" required="">
         <span>Adresse</span>
     </label>
     <label>
-        <input class="input" type="email" placeholder="" required="">
+        <input class="input" type="email" name="email" placeholder="" required="">
         <span>Email</span>
     </label>
     <label>
-        <input class="input" type="tel" placeholder="" required="">
+        <input class="input" type="tel" name="tel" placeholder="" required="">
         <span>Téléphone</span>
     </label>
     <label>
-        <input class="input" type="password" placeholder="" required="">
+        <input class="input" type="password" name="password" placeholder="" required="">
         <span>Password</span>
     </label>
 

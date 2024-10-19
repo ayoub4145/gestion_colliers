@@ -34,7 +34,7 @@ Route::prefix('livreur')->group(function () {
 
 // Authentification pour les admins
 Route::prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'showDash']);
+    Route::get('/dashboard', [AdminController::class, 'showDash'])->name('showDashClient');
     // Route::post('/login', [AdminController::class, 'login']);
     // Route::post('/logout', [AdminController::class, 'logout']);
 });
