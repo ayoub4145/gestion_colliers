@@ -12,7 +12,7 @@ class LivreurController extends Controller
         // Affiche le formulaire de connexion
         public function showDash()
         {
-            return view('client.dashboard');
+            return view('livreur.dashboard');
         }
 
 }

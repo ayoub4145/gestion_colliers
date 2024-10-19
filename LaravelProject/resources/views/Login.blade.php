@@ -24,7 +24,7 @@
         @csrf <!-- Protection CSRF -->
 
         <!-- Champ caché pour le type d'utilisateur -->
-        <input type="hidden" name="user_type" id="hidden_user_type" value="">
+        {{-- <input type="hidden" name="user_type" id="hidden_user_type" value=""> --}}
 
         <label for="email">Email :</label>
         <input type="email" name="email" id="email" required>

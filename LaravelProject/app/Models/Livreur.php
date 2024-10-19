@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Livreur extends Model
 {
+
     protected $fillable = [
-        'nom', 'email', 'telephone'
+        'nom', 'email','password'
     ];
 
     public function colis()
