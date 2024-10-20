@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Client;
 use App\Models\User;
-use App\Models\Coli;
+use App\Models\Colis;
 use App\Models\Livreur;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
         $this->call(ClientSeeder::class);
-        $this->call(AdminSeeder::class);
+        // $this->call(AdminSeeder::class);
         $this->call(LivreurSeeder::class);
         $this->call(ColisSeeder::class);
         User::factory()->create([
