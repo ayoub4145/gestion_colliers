@@ -9,11 +9,7 @@
 <body>
     <button type="button">Profil</button>
     <h1 style="text-align:center;">Bonjour Admin</h1>
-    <pre>
-        <p style="text-align: center; border:dotted">
-            Que vous souhaitez faire ?
-        </p>
-    </pre>
+    
 
 </body>
 </html>
