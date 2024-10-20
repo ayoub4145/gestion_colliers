@@ -16,4 +16,8 @@ class Livreur extends Model
     {
         return $this->hasMany(Coli::class);
     }
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
 }

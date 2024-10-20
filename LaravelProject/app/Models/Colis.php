@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Coli extends Model
 {
     protected $fillable = [
-        'description', 
-        'expediteur_id', 
-        'destinataire_id', 
-        'livreur_id', 
-        'poids', 
-        'prix', 
-        'numero_suivi', 
+        'description',
+        'expediteur_id',
+        'destinataire_id',
+        'livreur_id',
+        'poids',
+        'prix',
+        'numero_suivi',
         'date_livraison'
     ];
 

@@ -9,4 +9,10 @@ class Admin extends Model
 
     protected $fillable = [
         'email','password'
-    ];}
+    ];
+// One admin can have many livreurs
+public function livreurs()
+{
+    return $this->hasMany(Livreur::class);
+}
+}

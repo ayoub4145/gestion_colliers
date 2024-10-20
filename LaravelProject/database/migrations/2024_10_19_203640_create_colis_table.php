@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('expediteur_id');
             $table->unsignedBigInteger('destinataire_id');
             $table->unsignedBigInteger('livreur_id')->nullable();
+            $table->enum('statut_colis',['En attente','En cours','Livré'])->default('En attente');
             $table->decimal('poids',8,2);
             $table->decimal('prix',8,2);
             $table->timestamp('date_livraison');
@@ -31,7 +32,7 @@ return new class extends Migration
         });
 
     }
-    
+
     /**
      * Reverse the migrations.
      */
