@@ -1,12 +1,16 @@
 <?php
 
 namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Client extends Authenticatable
+class Client extends Model
 {
-    use Notifiable;
+    use HasFactory;
+
 
     protected $fillable = [
         'nom','prenom','adresse', 'email','telephone','password'
@@ -18,11 +22,11 @@ class Client extends Authenticatable
 
     public function colisEnvoyes()
     {
-        return $this->hasMany(Coli::class, 'expediteur_id');
+        return $this->hasMany(Colis::class, 'expediteur_id');
     }
 
     public function colisRecus()
     {
-        return $this->hasMany(Coli::class, 'destinataire_id');
+        return $this->hasMany(Colis::class, 'destinataire_id');
     }
 }

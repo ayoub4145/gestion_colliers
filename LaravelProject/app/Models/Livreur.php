@@ -8,13 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Livreur extends Model
 {
 
+    use HasFactory;
+
     protected $fillable = [
-        'nom','prenom','adresse', 'email','telephone','password'
+        'nom','prenom','adresse','statut_livreur', 'email','telephone','password'
     ];
 
     public function colis()
     {
-        return $this->hasMany(Coli::class);
+        return $this->hasMany(Colis::class);
     }
     public function admin()
     {

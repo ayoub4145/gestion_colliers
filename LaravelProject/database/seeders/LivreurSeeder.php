@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Livreur;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,13 +14,6 @@ class LivreurSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('livreurs')->insert([
-            'nom'=>'Glovo',
-            'prenom'=>'glovo',
-            'adresse'=>'Paris,France',
-            'email'=>'glovo@gmail.com',
-            'password'=>bcrypt('glovo'),
-            'telephone'=>'123456789',
-        ]);
+        Livreur::factory()->count(10)->create();
     }
 }

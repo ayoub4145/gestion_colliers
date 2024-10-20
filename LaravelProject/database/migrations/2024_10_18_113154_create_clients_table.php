@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('prenom',50);
             $table->string('adresse');
             $table->string('email',100)->uniqe();
-            $table->string('telephone',10);
+            $table->string('telephone');
             $table->string('password');
             $table->timestamps();
         });

@@ -18,7 +18,7 @@ class ClientController extends Controller
         {
             $liste_livreurs=Livreur::all();
             $liste_colis=Coli::all();
-            return view('client.dashboard');
+            return view('client.dashboard',compact($liste_livreurs,$liste_colis));
         }
 
 }

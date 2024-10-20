@@ -3,11 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Coli extends Model
+class Colis extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'description',
+        'statut_colis',
         'expediteur_id',
         'destinataire_id',
         'livreur_id',

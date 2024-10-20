@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('adresse');
             $table->enum('statut_livreur',['Disponible','Occupé'])->default('Disponible');
             $table->string('email',100)->unique();
-            $table->string('telephone',10);
+            $table->string('telephone');
             $table->string('password');
             $table->foreignId('admin_id')->constrained()->onDelete('cascade');
 
