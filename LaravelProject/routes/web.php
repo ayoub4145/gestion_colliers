@@ -21,6 +21,7 @@ Route::post('/s_inscrire',[RegisterController::class,'register'])->name('registe
 // Authentification pour les clients
 Route::prefix('client')->group(function () {
     Route::get('/dashboard', [ClientController::class, 'showDash']);
+
     // Route::post('/login', [ClientController::class, 'login']);
     // Route::post('/logout', [ClientController::class, 'logout']);
 });
@@ -35,6 +36,8 @@ Route::prefix('livreur')->group(function () {
 // Authentification pour les admins
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'showDash'])->name('showDashClient');
+    Route::get('/ajt_livreur',[AdminController::class,'showForm'])->name('showForm');
+    Route::post('/ajt_livreur',[AdminController::class, 'ajouterLivreur'])->name('livreur');
     // Route::post('/login', [AdminController::class, 'login']);
     // Route::post('/logout', [AdminController::class, 'logout']);
 });
