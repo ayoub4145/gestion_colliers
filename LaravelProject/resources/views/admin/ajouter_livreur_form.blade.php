@@ -70,10 +70,10 @@
                 <th>Statut</th>
                 <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="statut" value="disponible" checked> Disponible
+                        <input class="form-check-input" type="radio" name="statut "value="Disponible" > Disponible
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="statut" value="occupe"> Occupé
+                        <input class="form-check-input" type="radio" name="statut" value="Occupé"> Occupé
                     </div>
                 </td>
             </tr>

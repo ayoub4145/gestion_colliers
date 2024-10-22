@@ -14,7 +14,8 @@ class AdminController extends Controller
         // Affiche le formulaire de connexion
         public function showDash()
         {
-            $liste_livreurs=Livreur::where('statut_livreur','Disponible')->paginate(10);
+            // $liste_livreurs=Livreur::where('statut_livreur','Disponible')->paginate(10);
+            $liste_livreurs=Livreur::paginate(10);
             $liste_colis=Colis::paginate(10);
             // dd($liste_colis);
             // dd($liste_livreurs); // Cela va afficher les données retournées et arrêter l'exécution
@@ -28,7 +29,7 @@ class AdminController extends Controller
              'nom' => 'required|string|max:255',
              'prenom' => 'required|string|max:255',
              'adresse' => 'required|string',
-             'statut' => 'required|string|in:Disponible,Occupé',
+             'statut' => 'required|in:Disponible,Occupé',
              'email' => 'required|email|unique:livreurs',
              'telephone' => 'required|string|max:10',
             ]);
@@ -51,10 +52,12 @@ class AdminController extends Controller
         $livreur->admin_id=1;
         //  = auth()->id(); // Si tu veux lier au user connecté, sinon assigner manuellement
 
-        // Sauvegarder le livreur dans la base de données
-        $livreur->save();
-        // Redirection avec un message de succès
-        return redirect()->route('showDashAdmin')->with('success', 'Livreur ajouté avec succès.');
+        try {
+            $livreur->save();
+            return redirect()->route('showDashAdmin')->with('success', 'Livreur ajouté avec succès.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Une erreur est survenue : ' . $e->getMessage()]);
+        }
         }
 
 
