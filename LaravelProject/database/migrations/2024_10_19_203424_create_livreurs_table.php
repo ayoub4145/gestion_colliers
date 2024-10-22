@@ -19,9 +19,8 @@ return new class extends Migration
             $table->enum('statut_livreur',['Disponible','Occupé'])->default('Disponible');
             $table->string('email',100)->unique();
             $table->string('telephone');
-            $table->string('password');
+            $table->string('password')->nullable()->default();
             $table->foreignId('admin_id')->constrained()->onDelete('cascade');
-
             $table->timestamps();
         });
     }

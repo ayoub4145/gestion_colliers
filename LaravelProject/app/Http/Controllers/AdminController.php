@@ -23,9 +23,38 @@ class AdminController extends Controller
         public function showForm(){
             return view('admin.ajouter_livreur_form');
         }
-        public function ajouterLivreur(){
-            
+        public function ajouterLivreur(Request $request){
+           $validatedData= $request->validate([
+             'nom' => 'required|string|max:255',
+             'prenom' => 'required|string|max:255',
+             'adresse' => 'required|string',
+             'statut' => 'required|string|in:Disponible,Occupé',
+             'email' => 'required|email|unique:livreurs',
+             'telephone' => 'required|string|max:10',
+            ]);
+             // Générer le mot de passe dynamique : Prenom@Nom123
+        $password = $request->prenom . '@' . $request->nom . '123';
 
+        // Créer un nouvel objet livreur
+        $livreur = new Livreur();
+        $livreur->nom = $validatedData['nom'];
+        $livreur->prenom = $validatedData['prenom'];
+        $livreur->adresse = $validatedData['adresse'];
+        $livreur->statut_livreur = $validatedData['statut'];
+        $livreur->email = $validatedData['email'];
+        $livreur->telephone = $validatedData['telephone'];
+
+        // Hacher le mot de passe avant de l'enregistrer dans la base de données
+        $livreur->password = Hash::make($password);
+
+        // Assigner l'admin_id avec l'utilisateur connecté (si applicable)
+        $livreur->admin_id=1;
+        //  = auth()->id(); // Si tu veux lier au user connecté, sinon assigner manuellement
+
+        // Sauvegarder le livreur dans la base de données
+        $livreur->save();
+        // Redirection avec un message de succès
+        return redirect()->route('showDashAdmin')->with('success', 'Livreur ajouté avec succès.');
         }
 
 

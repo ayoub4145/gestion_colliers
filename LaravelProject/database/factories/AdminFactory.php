@@ -19,12 +19,12 @@ class AdminFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array
+    public function definition()
     {
-        return [
-           'email'=>$this->faker->safeEmail(),
-           'password' => Hash::make('password'), // Génère un mot de passe hashé
+        // return [
+        //    'email'=>$this->faker->safeEmail(),
+        //    'password' => Hash::make('password'), // Génère un mot de passe hashé
 
-        ];
+        // ];
     }
 }
