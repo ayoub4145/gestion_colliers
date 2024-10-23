@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('nom',50);
             $table->string('prenom',50);
             $table->string('adresse');
-            $table->enum('statut_livreur',['Disponible','Occupé'])->default('Disponible');
-            $table->string('email',100)->unique();
+            $table->boolean('statut_livreur')->default(true); // true = Disponible, false = Occupé
+            $table->string('email')->unique();
             $table->string('telephone');
             $table->string('password')->nullable();
-            $table->foreignId('admin_id')->nullable()->default(1)->constrained()->onDelete('cascade');
+            $table->foreignId('admin_id')->nullable()->default(1)->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }

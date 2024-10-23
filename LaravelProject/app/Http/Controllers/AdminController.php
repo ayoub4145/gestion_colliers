@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth; // Pour l'authentification
+use Illuminate\Validation\ValidationException;
 
 
 class AdminController extends Controller
@@ -28,35 +29,50 @@ class AdminController extends Controller
         }
         public function ajouterLivreur(Request $request)
         {
-            $validatedData = $request->validate([
-                'nom' => 'required|string|max:255',
-                'prenom' => 'required|string|max:255',
-                'adresse' => 'required|string',
-                'statut' => 'required|string|in:Disponible,Occupé',
-                'email' => 'required|email|unique:livreurs,email',
-                'telephone' => 'required|string|max:10',
-            ]);
+            // Vérification des données envoyées dans la requête
+            //dd($request->all());
 
-            // Générer le mot de passe dynamique
+            // Ajout d'une étape de débogage après la validation
+            try {
+                $validatedData = $request->validate([
+                    'nom' => 'required|string|max:255',
+                    'prenom' => 'required|string|max:255',
+                    'adresse' => 'required|string',
+                    'statut' => 'required|in:1,0',
+                    'email' => 'required|email|unique:livreurs,email',
+                    'telephone' => 'required|string|max:10',
+                ]);
+            } catch (ValidationException $e) {
+                // Utilisation de dd() pour voir les erreurs de validation
+                dd($e->errors());
+            }
+
+            // Vérifier les données validées
+            // dd($validatedData);
+
+            // Continuer avec les étapes suivantes si la validation réussit
             $password = Hash::make($request->prenom . '@' . $request->nom . '123');
+            // dd($password);
 
-            // Assigner l'admin_id à l'utilisateur connecté
-            $adminId = 1; // Si l'utilisateur est connecté, sinon valeur par défaut 1
+            $adminId = Auth::check() ? Auth::id() : 1;
+            // dd($adminId);
 
-            Livreur::create([
+            // Utiliser la méthode create pour insérer les données
+            $livreur = Livreur::create([
                 'nom' => $validatedData['nom'],
                 'prenom' => $validatedData['prenom'],
                 'adresse' => $validatedData['adresse'],
-                'statut_livreur' => $validatedData['statut'],
+                'statut_livreur' => $validatedData['statut']=='1', // Convertit en booléen
                 'email' => $validatedData['email'],
                 'telephone' => $validatedData['telephone'],
                 'password' => $password,
                 'admin_id' => $adminId,
             ]);
 
+            // Vérification après l'insertion
+            // dd($livreur);
+
             return redirect()->route('showDashAdmin')->with('success', 'Livreur ajouté avec succès.');
         }
-
-
 
 }

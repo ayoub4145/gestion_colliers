@@ -79,21 +79,19 @@
                 <th>Statut</th>
                 <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="statut "value="Disponible" > Disponible
+                        <input class="form-check-input" type="radio" name="statut "value="1" > Disponible
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="statut" value="Occupé"> Occupé
+                        <input class="form-check-input" type="radio" name="statut" value="0" > Occupé
                     </div>
-                    @error('statut')
-                    {{$message}}
-                    @enderror
+
                 </td>
             </tr>
             <tr>
                 <th>Email</th>
                 <td><input type="email" class="form-control" name="email"></td>
                 @error('email')
-                {{$message}}
+                  {{$message}}
                 @enderror
             </tr>
             <tr>

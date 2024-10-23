@@ -36,7 +36,7 @@
                         <td>{{ $livreur->nom }}</td>
                         <td>{{ $livreur->prenom }}</td>
                         <td>{{ $livreur->adresse }}</td>
-                        <td>{{ $livreur->statut_livreur }}</td>
+                        <td>{{ $livreur->statut_livreur ? 'Disponible' : 'Occupé' }}</td>
                         <td>{{ $livreur->email }}</td>
                         <td>{{ $livreur->telephone }}</td>
                     </tr>
