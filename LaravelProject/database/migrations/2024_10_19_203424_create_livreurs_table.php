@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email',100)->unique();
             $table->string('telephone');
             $table->string('password')->nullable();
-            $table->foreignId('admin_id')->constrained()->onDelete('cascade');
+            $table->foreignId('admin_id')->nullable()->default(1)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

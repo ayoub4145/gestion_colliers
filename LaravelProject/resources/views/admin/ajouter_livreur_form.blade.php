@@ -57,14 +57,23 @@
             <tr>
                 <th>Nom</th>
                 <td><input type="text" class="form-control" name="nom" required></td>
+                @error('nom')
+                {{$message}}
+                @enderror
             </tr>
             <tr>
                 <th>Prénom</th>
                 <td><input type="text" class="form-control" name="prenom" required></td>
+                @error('prenom')
+                {{$message}}
+                @enderror
             </tr>
             <tr>
                 <th>Adresse</th>
                 <td><input type="text" class="form-control" name="adresse"></td>
+                @error('adresse')
+                {{$message}}
+                @enderror
             </tr>
             <tr>
                 <th>Statut</th>
@@ -75,15 +84,24 @@
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="statut" value="Occupé"> Occupé
                     </div>
+                    @error('statut')
+                    {{$message}}
+                    @enderror
                 </td>
             </tr>
             <tr>
                 <th>Email</th>
                 <td><input type="email" class="form-control" name="email"></td>
+                @error('email')
+                {{$message}}
+                @enderror
             </tr>
             <tr>
                 <th>Téléphone</th>
                 <td><input type="tel" class="form-control" name="telephone" required></td>
+                @error('telephone')
+                {{$message}}
+                @enderror
             </tr>
         </table>
         <input type="submit" value="Ajouter" class="btn btn-primary">

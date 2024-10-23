@@ -11,7 +11,8 @@ class Livreur extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nom','prenom','adresse','statut_livreur', 'email','telephone','password'
+        'nom','prenom','adresse','statut_livreur', 'email','telephone','password',        'admin_id', // clé étrangère
+
     ];
 
     public function colis()

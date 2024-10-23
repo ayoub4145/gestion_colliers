@@ -8,6 +8,8 @@ use App\Models\Livreur;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth; // Pour l'authentification
+
 
 class AdminController extends Controller
 {
@@ -24,41 +26,37 @@ class AdminController extends Controller
         public function showForm(){
             return view('admin.ajouter_livreur_form');
         }
-        public function ajouterLivreur(Request $request){
-           $validatedData= $request->validate([
-             'nom' => 'required|string|max:255',
-             'prenom' => 'required|string|max:255',
-             'adresse' => 'required|string',
-             'statut' => 'required|in:Disponible,Occupé',
-             'email' => 'required|email|unique:livreurs',
-             'telephone' => 'required|string|max:10',
+        public function ajouterLivreur(Request $request)
+        {
+            $validatedData = $request->validate([
+                'nom' => 'required|string|max:255',
+                'prenom' => 'required|string|max:255',
+                'adresse' => 'required|string',
+                'statut' => 'required|string|in:Disponible,Occupé',
+                'email' => 'required|email|unique:livreurs,email',
+                'telephone' => 'required|string|max:10',
             ]);
-             // Générer le mot de passe dynamique : Prenom@Nom123
-        $password = $request->prenom . '@' . $request->nom . '123';
 
-        // Créer un nouvel objet livreur
-        $livreur = new Livreur();
-        $livreur->nom = $validatedData['nom'];
-        $livreur->prenom = $validatedData['prenom'];
-        $livreur->adresse = $validatedData['adresse'];
-        $livreur->statut_livreur = $validatedData['statut'];
-        $livreur->email = $validatedData['email'];
-        $livreur->telephone = $validatedData['telephone'];
+            // Générer le mot de passe dynamique
+            $password = Hash::make($request->prenom . '@' . $request->nom . '123');
 
-        // Hacher le mot de passe avant de l'enregistrer dans la base de données
-        $livreur->password = Hash::make($password);
+            // Assigner l'admin_id à l'utilisateur connecté
+            $adminId = 1; // Si l'utilisateur est connecté, sinon valeur par défaut 1
 
-        // Assigner l'admin_id avec l'utilisateur connecté (si applicable)
-        $livreur->admin_id=1;
-        //  = auth()->id(); // Si tu veux lier au user connecté, sinon assigner manuellement
+            Livreur::create([
+                'nom' => $validatedData['nom'],
+                'prenom' => $validatedData['prenom'],
+                'adresse' => $validatedData['adresse'],
+                'statut_livreur' => $validatedData['statut'],
+                'email' => $validatedData['email'],
+                'telephone' => $validatedData['telephone'],
+                'password' => $password,
+                'admin_id' => $adminId,
+            ]);
 
-        try {
-            $livreur->save();
             return redirect()->route('showDashAdmin')->with('success', 'Livreur ajouté avec succès.');
-        } catch (\Exception $e) {
-            return back()->withErrors(['error' => 'Une erreur est survenue : ' . $e->getMessage()]);
         }
-        }
+
 
 
 }
