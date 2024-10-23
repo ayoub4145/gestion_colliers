@@ -11,7 +11,7 @@ class Livreur extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nom','prenom','adresse','statut_livreur', 'email','telephone','password', 'admin_id', // clé étrangère
+        'nom','prenom','adresse','statut_livreur','cin', 'email','telephone','password', 'admin_id', // clé étrangère
 
     ];
 

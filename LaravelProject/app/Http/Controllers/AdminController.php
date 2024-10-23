@@ -39,6 +39,7 @@ class AdminController extends Controller
                     'prenom' => 'required|string|max:255',
                     'adresse' => 'required|string',
                     'statut' => 'required|in:1,0',
+                    'cin'=>'required|string|max:10',
                     'email' => 'required|email|unique:livreurs,email',
                     'telephone' => 'required|string|max:10',
                 ]);
@@ -63,6 +64,7 @@ class AdminController extends Controller
                 'prenom' => $validatedData['prenom'],
                 'adresse' => $validatedData['adresse'],
                 'statut_livreur' => $validatedData['statut']=='1', // Convertit en booléen
+                'cin' => $validatedData['cin'],
                 'email' => $validatedData['email'],
                 'telephone' => $validatedData['telephone'],
                 'password' => $password,

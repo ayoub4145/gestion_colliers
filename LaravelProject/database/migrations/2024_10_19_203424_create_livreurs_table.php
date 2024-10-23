@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('prenom',50);
             $table->string('adresse');
             $table->boolean('statut_livreur')->default(true); // true = Disponible, false = Occupé
+            $table->string('cin', 10)->unique(); // Utilisation d'un unique pour éviter les doublons
             $table->string('email')->unique();
             $table->string('telephone');
             $table->string('password')->nullable();

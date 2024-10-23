@@ -30,6 +30,10 @@
         <span>Adresse</span>
     </label>
     <label>
+        <input class="input" type="text" name="cin" placeholder="" required="">
+        <span>CIN</span>
+    </label>
+    <label>
         <input class="input" type="email" name="email" placeholder="" required="">
         <span>Email</span>
     </label>

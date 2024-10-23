@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nom',50);
             $table->string('prenom',50);
             $table->string('adresse');
+            $table->string('cin', 10)->unique(); // Utilisation d'un unique pour éviter les doublons
             $table->string('email',100)->uniqe();
             $table->string('telephone');
             $table->string('password');

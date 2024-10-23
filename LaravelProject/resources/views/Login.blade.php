@@ -32,7 +32,7 @@
         <input type="password" name="password" id="password" required minlength="4">
         <br>
         <button type="submit">Se connecter</button><br>
-        {{-- <i><a href="{{ route('RegisterForm') }}">S'inscrire</a></i> --}}
+        <i><a href="{{ route('RegisterForm') }}">S'inscrire en tant que client</a></i>
     </form>
 </body>
 </html>

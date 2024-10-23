@@ -88,6 +88,15 @@
                 </td>
             </tr>
             <tr>
+                <th>CIN</th>
+                <td>
+                    <input type="text" class="form-control" name="cin" required></td>
+                @error('cin')
+                {{$message}}
+                @enderror
+                </td>
+            </tr>
+            <tr>
                 <th>Email</th>
                 <td><input type="email" class="form-control" name="email"></td>
                 @error('email')
