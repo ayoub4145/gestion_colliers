@@ -25,8 +25,10 @@
                         <th>Prénom</th>
                         <th>Adresse</th>
                         <th>Statut</th>
+                        <th>CIN</th>
                         <th>Email</th>
                         <th>Téléphone</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,8 +39,10 @@
                         <td>{{ $livreur->prenom }}</td>
                         <td>{{ $livreur->adresse }}</td>
                         <td>{{ $livreur->statut_livreur ? 'Disponible' : 'Occupé' }}</td>
+                        <td>{{$livreur->cin}}</td>
                         <td>{{ $livreur->email }}</td>
                         <td>{{ $livreur->telephone }}</td>
+                        <td><a href="">Modifier</a> <a href="">Supprimer</a></td>
                     </tr>
                     @endforeach
                 </tbody>
