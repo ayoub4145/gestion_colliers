@@ -52,7 +52,7 @@ class AdminController extends Controller
             // dd($validatedData);
 
             // Continuer avec les étapes suivantes si la validation réussit
-            $password = Hash::make($request->prenom . '@' . $request->nom . '123');
+            $password = Hash::make($request->prenom . '@' . $request->cin);
             // dd($password);
 
             $adminId = Auth::check() ? Auth::id() : 1;
