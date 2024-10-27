@@ -31,6 +31,8 @@ Route::prefix('livreur')->group(function () {
     Route::get('/dashboard', [LivreurController::class, 'showDash']);
     Route::get('/ajt_livreur',[LivreurController::class,'showForm'])->name('showForm');
     Route::post('/ajt_livreur',[LivreurController::class, 'ajouterLivreur'])->name('livreur');
+    Route::post('/modif_livreur',[LivreurController::class,'modifierLivreur'])->name('modifLivreur');
+    Route::post('/supp_livreur',[LivreurController::class,'supprimerLivreur'])->name('suppLivreur');
 
     // Route::post('/login', [LivreurController::class, 'login']);
     // Route::post('/logout', [LivreurController::class, 'logout']);

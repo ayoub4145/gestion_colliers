@@ -42,7 +42,7 @@
                         <td>{{$livreur->cin}}</td>
                         <td>{{ $livreur->email }}</td>
                         <td>{{ $livreur->telephone }}</td>
-                        <td><a href="">Modifier</a> <a href="">Supprimer</a></td>
+                        <td><a href="{{route('modifLivreur')}}">Modifier</a> <a href="{{route('suppLivreur')}}">Supprimer</a></td>
                     </tr>
                     @endforeach
                 </tbody>
