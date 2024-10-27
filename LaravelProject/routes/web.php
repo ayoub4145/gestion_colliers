@@ -29,10 +29,7 @@ Route::prefix('client')->group(function () {
 // Authentification pour les livreurs
 Route::prefix('livreur')->group(function () {
     Route::get('/dashboard', [LivreurController::class, 'showDash']);
-    Route::get('/ajt_livreur',[LivreurController::class,'showForm'])->name('showForm');
-    Route::post('/ajt_livreur',[LivreurController::class, 'ajouterLivreur'])->name('livreur');
-    Route::post('/modif_livreur',[LivreurController::class,'modifierLivreur'])->name('modifLivreur');
-    Route::post('/supp_livreur',[LivreurController::class,'supprimerLivreur'])->name('suppLivreur');
+
 
     // Route::post('/login', [LivreurController::class, 'login']);
     // Route::post('/logout', [LivreurController::class, 'logout']);
@@ -41,6 +38,12 @@ Route::prefix('livreur')->group(function () {
 // Authentification pour les admins
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'showDash'])->name('showDashAdmin');
+    Route::get('/ajt_livreur',[AdminController::class,'showForm'])->name('showForm');
+    Route::post('/ajt_livreur',[AdminController::class, 'ajouterLivreur'])->name('livreur');
+    Route::get('/modif_livreur',[AdminController::class,'modifierLivreurForm'])->name('livreur_mod');
+    Route::get('/supp_livreur',[AdminController::class,'supprimerLivreurForm'])->name('livreur_supp');
+    Route::post('/modif_livreur',[AdminController::class,'modifierLivreur'])->name('modifLivreur');
+    Route::post('/supp_livreur',[AdminController::class,'supprimerLivreur'])->name('suppLivreur');
     // Route::post('/login', [AdminController::class, 'login']);
     // Route::post('/logout', [AdminController::class, 'logout']);
 });
