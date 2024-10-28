@@ -6,11 +6,29 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Liste des livreurs</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/e39df68516.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <button type="button">Profil</button>
         <h1 style="text-align:center;color:gray">Bonjour Admin</h1>
         <hr>
+        <!-- Affichage du message de succès dans la vue 'showDashAdmin' -->
+        @if(session('success'))
+        <div class="alert alert-success" id="success-alert">
+            {{ session('success') }}
+        </div>
+        @endif
+        <script>
+            // Fonction pour masquer l'alerte après 5 secondes (5000 millisecondes)
+            setTimeout(function() {
+                let alert = document.getElementById('success-alert');
+                if (alert) {
+                    alert.classList.add('fade');
+                    setTimeout(() => alert.style.display = 'none', 300); // Disparaît complètement
+                }
+            }, 5000); // 5000ms = 5 secondes
+        </script>
+
     <div class="container my-4">
         <!-- Bouton pour charger le formulaire -->
         <a href="#" id="loadForm" class="btn btn-primary mb-3">Ajouter un livreur</a>
@@ -42,7 +60,15 @@
                         <td>{{$livreur->cin}}</td>
                         <td>{{ $livreur->email }}</td>
                         <td>{{ $livreur->telephone }}</td>
-                        <td><a href="{{route('modifLivreur')}}">Modifier</a> <a href="{{route('suppLivreur')}}">Supprimer</a></td>
+                        <td><a href="{{route('livreur_mod',$livreur->id)}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <form action="{{ route('livreur.delete', $livreur->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce livreur ?');" style="background:none; border:none; color:red;">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

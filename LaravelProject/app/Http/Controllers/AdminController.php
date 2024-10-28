@@ -76,20 +76,46 @@ class AdminController extends Controller
 
             return redirect()->route('showDashAdmin')->with('success', 'Livreur ajouté avec succès.');
         }
-        public function modifierLivreur(Request $request){
+        public function modifierLivreur(Request $request,$id){
+            $validatedData = $request->validate([
+                'nom' => 'required|string|max:50',
+                'prenom' => 'required|string|max:50',
+                'adresse' => 'nullable|string',
+                'statut' => 'required|in:1,0',
+                'email' => 'required|email|unique:livreurs,email,' . $id,
+                'telephone' => 'required|string|max:10',
+            ]);
 
+            // Récupérer et mettre à jour le livreur
+            $livreur = Livreur::findOrFail($id);
+            $livreur->update($validatedData);
+            $livreur->save();
+
+            return redirect()->route('showDashAdmin')->with('success', 'Livreur modifié avec succès.');
         }
 
-        public function supprimerLivreur(){
+        public function deleteLivreur($id) {
+            $livreur = Livreur::find($id);
 
-        }
-        public function modifierLivreurForm(){
-            return view('admin.modifier_livreur_form');
+            if (!$livreur) {
+                return redirect()->route('showDashAdmin')->withErrors('Livreur introuvable.');
+            }
+
+            $livreur->delete();
+
+            return redirect()->route('showDashAdmin')->with('success', 'Livreur supprimé avec succès.');
         }
 
-        public function supprimerLivreurForm(){
-            return view('admin.supprimer_livreur_form');
+        public function modifierLivreurForm( $id){
+            $livreur = Livreur::findOrFail($id);
+            return view('admin.modifier_livreur_form',compact('livreur'));
         }
+
+        // public function supprimerLivreurForm($id){
+        //     $livreur = Livreur::findOrFail($id);
+
+        //     return view('admin.supprimer_livreur_form',$livreur);
+        // }
 
 
 }

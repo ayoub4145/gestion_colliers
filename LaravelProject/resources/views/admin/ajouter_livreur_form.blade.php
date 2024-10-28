@@ -51,67 +51,79 @@
     </style>
 </head>
 <body>
-    <form action="{{route('livreur')}}" method="POST">
+    <form action="{{ route('livreur') }}" method="POST">
         @csrf
         <table class="table">
             <tr>
                 <th>Nom</th>
-                <td><input type="text" class="form-control" name="nom" required></td>
-                @error('nom')
-                {{$message}}
-                @enderror
+                <td>
+                    <input type="text" class="form-control" name="nom" required>
+                    @error('nom')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </td>
             </tr>
             <tr>
                 <th>Prénom</th>
-                <td><input type="text" class="form-control" name="prenom" required></td>
-                @error('prenom')
-                {{$message}}
-                @enderror
+                <td>
+                    <input type="text" class="form-control" name="prenom" required>
+                    @error('prenom')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </td>
             </tr>
             <tr>
                 <th>Adresse</th>
-                <td><input type="text" class="form-control" name="adresse"></td>
-                @error('adresse')
-                {{$message}}
-                @enderror
+                <td>
+                    <input type="text" class="form-control" name="adresse">
+                    @error('adresse')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </td>
             </tr>
             <tr>
                 <th>Statut</th>
                 <td>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="statut "value="1" > Disponible
+                        <input class="form-check-input" type="radio" name="statut" value="1"> Disponible
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="statut" value="0" > Occupé
+                        <input class="form-check-input" type="radio" name="statut" value="0"> Occupé
                     </div>
-
+                    @error('statut')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </td>
             </tr>
             <tr>
                 <th>CIN</th>
                 <td>
-                    <input type="text" class="form-control" name="cin" required></td>
-                @error('cin')
-                {{$message}}
-                @enderror
+                    <input type="text" class="form-control" name="cin" required>
+                    @error('cin')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </td>
             </tr>
             <tr>
                 <th>Email</th>
-                <td><input type="email" class="form-control" name="email"></td>
-                @error('email')
-                  {{$message}}
-                @enderror
+                <td>
+                    <input type="email" class="form-control" name="email">
+                    @error('email')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </td>
             </tr>
             <tr>
                 <th>Téléphone</th>
-                <td><input type="tel" class="form-control" name="telephone" required></td>
-                @error('telephone')
-                {{$message}}
-                @enderror
+                <td>
+                    <input type="tel" class="form-control" name="telephone" required>
+                    @error('telephone')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </td>
             </tr>
         </table>
         <input type="submit" value="Ajouter" class="btn btn-primary">
     </form>
-</body>
+    </body>
 </html>

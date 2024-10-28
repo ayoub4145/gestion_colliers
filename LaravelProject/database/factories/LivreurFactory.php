@@ -19,13 +19,14 @@ class LivreurFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition():array
+    public function definition(): array
     {
         return [
             'nom' => $this->faker->lastName(), // Génère un nom de famille
             'prenom' => $this->faker->firstName(), // Génère un prénom
             'adresse' => $this->faker->address(), // Génère une adresse aléatoire
             'statut_livreur' => $this->faker->randomElement(['Disponible', 'Occupé']), // Statut aléatoire
+            'cin'=>$this->faker->text(10),
             'email' => $this->faker->unique()->safeEmail(), // Génère un email unique
             // 'telephone' => $this->faker->numerify('##########'), // Génère un numéro de téléphone de 10 chiffres
             'telephone' => $this->faker->phoneNumber(), // Génère un numéro de téléphone
