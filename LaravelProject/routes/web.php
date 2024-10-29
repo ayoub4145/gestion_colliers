@@ -37,7 +37,7 @@ Route::prefix('livreur')->middleware('auth')->group(function () {
 });
 
 // Authentification pour les admins
-Route::prefix('admin')->middleware('auth')->group(function () {
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'showDash'])->name('showDashAdmin');
     Route::get('/ajt_livreur',[AdminController::class,'showForm'])->name('showForm');
     Route::post('/ajt_livreur',[AdminController::class, 'ajouterLivreur'])->name('livreur');

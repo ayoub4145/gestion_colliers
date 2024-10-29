@@ -14,6 +14,9 @@ class Admin extends Authenticatable
     protected $fillable = [
         'email','password'
     ];
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 // One admin can have many livreurs
 public function livreurs()
 {
