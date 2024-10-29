@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Middleware\Authenticate;
 Route::get('/', function () {
     return view('index');
-});
+})->name('homepage');
 // Afficher le formulaire de login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('LoginForm');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
@@ -20,7 +20,7 @@ Route::post('/s_inscrire',[RegisterController::class,'register'])->name('registe
 // Route::get('/clientDashboard',[LoginController::class,'showDashClient'])->name('dashClient');
 
 // Authentification pour les clients
-Route::prefix('client')->middleware('auth')->group(function () {
+Route::prefix('client')->group(function () {
     Route::get('/dashboard', [ClientController::class, 'showDash']);
 
     // Route::post('/login', [ClientController::class, 'login']);
@@ -28,7 +28,7 @@ Route::prefix('client')->middleware('auth')->group(function () {
 });
 
 // Authentification pour les livreurs
-Route::prefix('livreur')->middleware('auth')->group(function () {
+Route::prefix('livreur')->group(function () {
     Route::get('/dashboard', [LivreurController::class, 'showDash']);
 
 
@@ -37,7 +37,7 @@ Route::prefix('livreur')->middleware('auth')->group(function () {
 });
 
 // Authentification pour les admins
-Route::prefix('admin')->middleware('auth:admin')->group(function () {
+Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'showDash'])->name('showDashAdmin');
     Route::get('/ajt_livreur',[AdminController::class,'showForm'])->name('showForm');
     Route::post('/ajt_livreur',[AdminController::class, 'ajouterLivreur'])->name('livreur');
