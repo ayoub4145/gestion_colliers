@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\LivreurController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ColisController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Middleware\Authenticate;
@@ -48,7 +49,8 @@ Route::prefix('admin')->group(function () {
     // Route::post('/supp_livreur',[AdminController::class,'supprimerLivreur'])->name('suppLivreur');
     // Route::post('/login', [AdminController::class, 'login']);
     // Route::post('/logout', [AdminController::class, 'logout']);
-});
+    Route::post('/search', [ColisController::class, 'getColisByNumeroSuivi'])->name('search');
+    });
 
 // Traiter la requête de login (POST)
 // Route::post('/login', [LoginController::class, 'login']);

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('numero_suivi')->unique(); // Champ pour numéro de suivi unique
             $table->text('description');
+            $table->string('contenu_colis');
             $table->unsignedBigInteger('expediteur_id');
             $table->unsignedBigInteger('destinataire_id');
             $table->unsignedBigInteger('livreur_id')->nullable();

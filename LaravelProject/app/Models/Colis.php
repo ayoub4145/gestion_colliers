@@ -12,6 +12,7 @@ class Colis extends Model
     protected $fillable = [
         'description',
         'statut_colis',
+        'contenu_colis',
         'expediteur_id',
         'destinataire_id',
         'livreur_id',
@@ -36,3 +37,4 @@ class Colis extends Model
         return $this->belongsTo(Livreur::class, 'livreur_id');
     }
 }
+
