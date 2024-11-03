@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Colis;
 use App\Models\Livreur;
+use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,6 +15,11 @@ use Illuminate\Validation\ValidationException;
 
 class AdminController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:admin');
+    // }
+
         // Affiche le formulaire de connexion
         public function showDash()
         {

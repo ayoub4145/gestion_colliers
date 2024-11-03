@@ -22,4 +22,8 @@ public function livreurs()
 {
     return $this->hasMany(Livreur::class);
 }
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
 }

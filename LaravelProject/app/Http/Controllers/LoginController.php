@@ -31,12 +31,19 @@ class LoginController extends Controller // Déclaration de la classe LoginContr
         $password = $request->password;
 
         // Vérifier si l'email et le mot de passe correspondent à un admin
-        $admin = Admin::where('email', $email)->first();
-        if ($admin && Hash::check($password, $admin->password)) {
-            // Authentifier l'admin
-            session(['admin' => true]);
+        // $admin = Admin::where('email', $email)->first();
+        // if ($admin && Hash::check($password, $admin->password)) {
+        //     // Authentifier l'admin
+        //     session(['admin' => true]);
+        //     return redirect()->intended('/admin/dashboard');
+        // }
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::guard('admin')->attempt($credentials)) {
+            $request->session()->regenerate();
             return redirect()->intended('/admin/dashboard');
         }
+    
 
         // Vérifier si l'email et le mot de passe correspondent à un client
         $client = \App\Models\Client::where('email', $email)->first();
