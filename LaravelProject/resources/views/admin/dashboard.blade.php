@@ -241,6 +241,8 @@ label {
         </div>
 
         <script>
+            document.addEventListener('DOMContentLoaded', function () {
+
             document.getElementById('searchForm').addEventListener('submit', async function (event) {
     event.preventDefault();
 
@@ -257,7 +259,8 @@ label {
             method: 'POST',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRF-Token': document.querySelector('input[name="_token"]').value
+                'X-CSRF-Token': document.querySelector('input[name="_token"]').value,
+                
             },
             body: formData
         });
@@ -267,34 +270,38 @@ label {
             resultDiv.innerHTML = `<p>Erreur de récupération des données.</p>`;
             return;
         }
-
-        const data = await response.json();
+        const data = await response.json(); // Récupérer les données JSON dans objet JS
         console.log("Données reçues :", data); // Vérifiez que les données sont bien reçues ici
+        // Afficher le div
+        resultDiv.style.display = 'block';
+        console.log("Contenu du div avant mise à jour :", resultDiv.innerHTML);
 
         // Utiliser les données reçues pour mettre à jour le contenu du div
         if (data) {
-    resultDiv.innerHTML = `
-        <p>Numéro de Suivi : ${data.numero_suivi}</p>
-        <p>Description : ${data.description}</p>
-        <p>Contenu : ${data.contenu_colis}</p>
-        <p>Statut : ${data.statut_colis}</p>
-        <p>Poids : ${data.poids} kg</p>
-        <p>Prix : ${data.prix} €</p>
-        <p>Expéditeur : ${data.expediteur_nom} ${data.expediteur_prenom}</p>
-        <p>Destinataire : ${data.destinataire_nom} ${data.destinataire_prenom}</p>
-        <p>Livreur : ${data.livreur_nom} ${data.livreur_prenom}</p>
-        <p>Date de Livraison : ${data.date_livraison}</p>
-    `;
-} else {
-    resultDiv.innerHTML = `<p>Aucune donnée à afficher.</p>`;
-}
-
+            resultDiv.innerHTML = `
+                <p>Numéro de Suivi : ${data.numero_suivi}</p>
+                <p>Description : ${data.description}</p>
+                <p>Contenu : ${data.contenu_colis}</p>
+                <p>Statut : ${data.statut_colis}</p>
+                <p>Poids : ${data.poids} kg</p>
+                <p>Prix : ${data.prix} €</p>
+                <p>Expéditeur : ${data.expediteur_nom} ${data.expediteur_prenom}</p>
+                <p>Destinataire : ${data.destinataire_nom} ${data.destinataire_prenom}</p>
+                <p>Livreur : ${data.livreur_nom} ${data.livreur_prenom}</p>
+                <p>Date de Livraison : ${data.date_livraison}</p>
+            `;
+        }
+        console.log("Contenu du div apres mise à jour :", resultDiv.innerHTML);
+else {
+            resultDiv.innerHTML = `<p>Aucune donnée à afficher.</p>`; // Afficher un message si aucune donnée
+        }
     } catch (error) {
         console.error("Erreur de requête :", error);
         resultDiv.innerHTML = `<p>Une erreur s'est produite lors de la récupération des données.</p>`;
+        resultDiv.style.display = 'block'; // Affiche le div même en cas d'erreur
     }
 });
-
+            });
         </script>
 
         <!-- Affichage du message de succès dans la vue 'showDashAdmin' -->

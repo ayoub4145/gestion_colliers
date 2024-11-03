@@ -16,11 +16,9 @@ class ColisController extends Controller
         $colis = Colis::with(['expediteur', 'destinataire', 'livreur'])
             ->where('numero_suivi', $query)
             ->first();
-
-        if ($colis) {
-            return response()->json([
-                'success' => true,
-                'data' => [
+            if ($colis) {
+                // Prépare les données du colis dans un tableau
+                $colisData = [
                     'numero_suivi' => $colis->numero_suivi,
                     'description' => $colis->description,
                     'contenu_colis' => $colis->contenu_colis,
@@ -34,14 +32,15 @@ class ColisController extends Controller
                     'livreur_nom' => $colis->livreur->nom ?? 'Non attribué',
                     'livreur_prenom' => $colis->livreur->prenom ?? '',
                     'date_livraison' => $colis->date_livraison,
-                ]
-            ]);
-        } else {
-            return response()->json([
-                'success' => false,
-                'error' => 'Colis introuvable avec ce numéro de suivi.'
-            ], 404);
+                ];
+
+                // Renvoyer les données à la vue
+                return view('colis_info', compact('colisData'));
+            } else {
+                return view('colis_info')->with('error', 'Colis introuvable avec ce numéro de suivi.');
+            }
+
+
         }
-    }
 
 }
