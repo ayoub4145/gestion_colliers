@@ -52,6 +52,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/search', [ColisController::class, 'getColisByNumeroSuivi'])->name('search');
     Route::get('/admin/profil', [AdminController::class, 'showProfil'])->name('admin.profil');
     Route::put('/admin/update', [AdminController::class, 'updateProfil'])->name('admin.update');
+    Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
+
 
     });
 

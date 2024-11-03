@@ -138,5 +138,14 @@ class AdminController extends Controller
             return redirect()->route('showDashAdmin')->with('success', 'Admin modifié avec succès.');
         }
 
+        public function logout(Request $request)
+    {
+        Auth::logout(); // Déconnecte l'utilisateur
+
+        $request->session()->invalidate(); // Invalide la session
+        $request->session()->regenerateToken(); // Régénère le token CSRF pour plus de sécurité
+
+        return redirect('/login')->with('success', 'Vous avez été déconnecté avec succès.');
+    }
 
 }

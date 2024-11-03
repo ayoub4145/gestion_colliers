@@ -199,10 +199,26 @@ label {
   font-size: 20px;
   margin-top: 10px;
 }
+.logout-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .logout-link:hover {
+            color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <a href="{{ route('admin.profil') }}" style="text-decoration: none;">Profil</a>
+    <a href="{{ route('logout') }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout-link">Se déconnecter &nbsp;<i class="fa-solid fa-right-from-bracket"></i></a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
     <h1 style="text-align:center;color:gray">Bonjour Admin</h1>
         <hr>
         <form id="searchForm" method="POST" action="{{route('search')}}">
