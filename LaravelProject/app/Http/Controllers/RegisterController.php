@@ -22,6 +22,7 @@ class RegisterController extends Controller
             'adresse' => 'required|string|max:255',
             'cin'=>'required|string|max:10',
             'email' => 'required|string|email|max:255|unique:clients',
+            'ville'=>'required|string',
             'tel' => 'required|string|max:15',
             'password' => 'required|string|min:6',
         ]);
@@ -38,6 +39,7 @@ class RegisterController extends Controller
             'prenom' => $request->prenom,
             'adresse' => $request->adresse,
             'cin' => $request->cin,
+            'ville'=>$request->ville,
             'email' => $request->email,
             'telephone' => $request->tel,
             'password' => Hash::make($request->password),

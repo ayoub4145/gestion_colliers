@@ -50,6 +50,9 @@ Route::prefix('admin')->group(function () {
     // Route::post('/login', [AdminController::class, 'login']);
     // Route::post('/logout', [AdminController::class, 'logout']);
     Route::post('/search', [ColisController::class, 'getColisByNumeroSuivi'])->name('search');
+    Route::get('/admin/profil', [AdminController::class, 'showProfil'])->name('admin.profil');
+    Route::put('/admin/update', [AdminController::class, 'updateProfil'])->name('admin.update');
+
     });
 
 // Traiter la requête de login (POST)

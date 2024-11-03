@@ -116,6 +116,27 @@ class AdminController extends Controller
 
         //     return view('admin.supprimer_livreur_form',$livreur);
         // }
+        public function showProfil() {
+            $admin = Admin::findOrFail(1); // On récupère l'admin avec l'ID 1
+
+            // On retourne la vue avec les données de l'admin
+            return view('admin.profil', compact('admin'));
+        }
+        public function updateProfil(Request $request){
+            $admin = Admin::findOrFail(1);
+
+            $validatedData = $request->validate([
+                'email' => 'required|email|max:50|unique:admins,email,1',
+                'password' => 'required|string|max:255',
+            ]);
+
+            // Mettre à jour l'email et le mot de passe (en hachant le mot de passe)
+            $admin->email = $validatedData['email'];
+            $admin->password = bcrypt($validatedData['password']);
+            $admin->save();
+
+            return redirect()->route('showDashAdmin')->with('success', 'Admin modifié avec succès.');
+        }
 
 
 }

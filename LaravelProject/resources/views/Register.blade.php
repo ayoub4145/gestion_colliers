@@ -34,6 +34,10 @@
         <span>CIN</span>
     </label>
     <label>
+        <input class="input" type="text" name="ville" placeholder="" required="">
+        <span>Ville</span>
+    </label>
+    <label>
         <input class="input" type="email" name="email" placeholder="" required="">
         <span>Email</span>
     </label>
