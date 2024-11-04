@@ -21,7 +21,7 @@ Route::post('/s_inscrire',[RegisterController::class,'register'])->name('registe
 // Route::get('/clientDashboard',[LoginController::class,'showDashClient'])->name('dashClient');
 
 // Authentification pour les clients
-Route::prefix('client')->group(function () {
+Route::middleware('auth:client')->prefix('client')->group(function () {
     Route::get('/dashboard', [ClientController::class, 'showDash']);
 
     // Route::post('/login', [ClientController::class, 'login']);
@@ -29,7 +29,7 @@ Route::prefix('client')->group(function () {
 });
 
 // Authentification pour les livreurs
-Route::prefix('livreur')->group(function () {
+Route::middleware('auth:livreur')->prefix('livreur')->group(function () {
     Route::get('/dashboard', [LivreurController::class, 'showDash']);
 
 

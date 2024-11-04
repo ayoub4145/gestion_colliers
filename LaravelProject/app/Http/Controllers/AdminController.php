@@ -154,4 +154,8 @@ class AdminController extends Controller
         return redirect('/login')->with('success', 'Vous avez été déconnecté avec succès.');
     }
 
+
+    public function affecter_colis_au_livreur(){
+        $colis_disponible=Colis::findOrFail()->where('statut_colis','En attente');
+    }
 }

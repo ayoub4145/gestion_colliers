@@ -15,9 +15,11 @@ class ClientController extends Controller
     //     $this->middleware('auth');
     // }
         // Affiche le formulaire de connexion
-        public function showDash()
+        public function showDash(Request $request)
         {
 
+            // $nom_client;
+            // $prenom_client;
             return view('client.dashboard');
         }
 

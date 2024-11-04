@@ -43,21 +43,31 @@ class LoginController extends Controller // Déclaration de la classe LoginContr
             $request->session()->regenerate();
             return redirect()->intended('/admin/dashboard');
         }
-    
+
 
         // Vérifier si l'email et le mot de passe correspondent à un client
-        $client = \App\Models\Client::where('email', $email)->first();
-        if ($client && Hash::check($password, $client->password)) {
-            // Authentifier le client
-            session(['client' => true]);
+        // $client = \App\Models\Client::where('email', $email)->first();
+        // if ($client && Hash::check($password, $client->password)) {
+        //     // Authentifier le client
+        //     session(['client' => true]);
+        //     return redirect()->intended('/client/dashboard');
+        // }
+
+        if (Auth::guard('client')->attempt($credentials)) {
+            $request->session()->regenerate();
             return redirect()->intended('/client/dashboard');
         }
 
         // Vérifier si l'email et le mot de passe correspondent à un livreur
-        $livreur = \App\Models\Livreur::where('email', $email)->first();
-        if ($livreur && Hash::check($password, $livreur->password)) {
-            // Authentifier le livreur
-            session(['livreur' => true]);
+        // $livreur = \App\Models\Livreur::where('email', $email)->first();
+        // if ($livreur && Hash::check($password, $livreur->password)) {
+        //     // Authentifier le livreur
+        //     session(['livreur' => true]);
+        //     return redirect()->intended('/livreur/dashboard');
+        // }
+
+        if (Auth::guard('livreur')->attempt($credentials)) {
+            $request->session()->regenerate();
             return redirect()->intended('/livreur/dashboard');
         }
 

@@ -49,6 +49,14 @@ return [
             'driver'=>'session',
             'provider'=>'admins',
         ],
+        'client'=>[
+            'driver'=>'session',
+            'provider'=>'clients',
+        ],
+        'livreur'=>[
+            'driver'=>'session',
+            'provider'=>'livreurs',
+        ],
     ],
 
     /*
@@ -76,6 +84,16 @@ return [
         'admins'=>[
             'driver'=>'eloquent',
             'model'=>App\Models\Admin::class,
+
+        ],
+        'clients'=>[
+            'driver'=>'eloquent',
+            'model'=>App\Models\Client::class,
+
+        ],
+        'livreurs'=>[
+            'driver'=>'eloquent',
+            'model'=>App\Models\Livreur::class,
 
         ],
 

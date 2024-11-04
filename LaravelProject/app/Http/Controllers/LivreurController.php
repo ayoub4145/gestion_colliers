@@ -11,8 +11,6 @@ use App\Models\Livreur;
 
 class LivreurController extends Controller
 {
-        // Affiche le formulaire de connexion
-        // Affiche le formulaire de connexion
         public function showDash()
         {
             return view('livreur.dashboard');
