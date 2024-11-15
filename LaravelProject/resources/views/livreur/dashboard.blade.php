@@ -43,7 +43,7 @@
 
     @if (isset($assignedColis) && count($assignedColis) > 0)
         <h2>Liste des Colis Affectés</h2>
-        <table border="1">
+        {{-- <table border="1">
             <thead>
                 <tr>
                     <th>ID Colis</th>
@@ -60,7 +60,12 @@
                     </tr>
                 @endforeach
             </tbody>
-        </table>
+        </table> --}}
+        @foreach($assignedColis as $colis)
+    <p>Colis ID: {{ $colis->id }}</p>
+    <p>Statut: {{ $colis->statut_colis }}</p>
+    <p>Livreur: {{ $colis->livreur ? $colis->livreur->nom : 'Aucun livreur assigné' }}</p>
+    @endforeach
     @else
         <p>Aucun colis n'a été affecté.</p>
     @endif

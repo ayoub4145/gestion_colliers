@@ -159,17 +159,18 @@ class AdminController extends Controller
     public function affecter_colis_au_livreur()
     {
         // Retrieve 10 random parcels with status "En attente"
-        $colis_disponibles = Colis::where('statut_colis', 'En attente')
+        $colis_disponibles = Colis::with('livreur')
+                            ->where('statut_colis', 'En attente')
                             ->inRandomOrder()
-                            ->limit(10)
+                            ->limit(2)
                             ->get();
 
         // Retrieve available delivery persons with status "Disponible"
         $livreurs_disponibles = Livreur::where('statut', 'Disponible')->get();
 
-        if ($livreurs_disponibles->isEmpty()) {
-            return view('colis.affectation_result')->with('message', "Aucun livreur disponible pour l'affectation des colis.");
-        }
+        // if ($livreurs_disponibles->isEmpty()) {
+        //     return view('colis.affectation_result')->with('message', "Aucun livreur disponible pour l'affectation des colis.");
+        // }
 
         $assignedColis = []; // Array to store assigned parcels
 
@@ -179,7 +180,7 @@ class AdminController extends Controller
 
             // Assign the parcel to the delivery person
             $colis->livreur_id = $livreur->id;
-            $colis->statut_colis = 'En cours de livraison';
+            $colis->statut_colis = 'En cours';
             $colis->save();
 
             // Update the delivery person's status to "Occupied"
