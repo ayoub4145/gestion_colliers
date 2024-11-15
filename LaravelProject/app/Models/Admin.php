@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Admin extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable,HasFactory;
 
     protected $fillable = [
         'email','password'
@@ -22,8 +22,5 @@ public function livreurs()
 {
     return $this->hasMany(Livreur::class);
 }
-public function user()
-{
-    return $this->belongsTo(User::class);
-}
+
 }

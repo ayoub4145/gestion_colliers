@@ -350,7 +350,7 @@ else {
                         <td>{{ $livreur->prenom }}</td>
                         <td>{{ $livreur->adresse }}</td>
                         <td>{{ $livreur->statut_livreur ? 'Disponible' : 'Occupé' }}</td>
-                        <td>{{$livreur->cin}}</td>
+                        <td>{{$livreur->cin_livreur}}</td>
                         <td>{{ $livreur->email }}</td>
                         <td>{{ $livreur->telephone }}</td>
                         <td><a href="{{route('livreur_mod',$livreur->id)}}"><i class="fa-solid fa-pen-to-square"></i></a>

@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth; // Pour l'authentification
 use Illuminate\Validation\ValidationException;
+use App\Notifications\EchecLivraisonNotification;
+use Illuminate\Notifications\Notification;
 
 
 class AdminController extends Controller
@@ -133,7 +135,7 @@ class AdminController extends Controller
 
             $validatedData = $request->validate([
                 'email' => 'required|email|max:50|unique:admins,email,1',
-                'password' => 'required|string|max:255',
+                'password' => 'nullable|string|min:8|max:255',
             ]);
 
             // Mettre à jour l'email et le mot de passe (en hachant le mot de passe)
@@ -154,8 +156,117 @@ class AdminController extends Controller
         return redirect('/login')->with('success', 'Vous avez été déconnecté avec succès.');
     }
 
+    public function affecter_colis_au_livreur()
+    {
+        // Retrieve 10 random parcels with status "En attente"
+        $colis_disponibles = Colis::where('statut_colis', 'En attente')
+                            ->inRandomOrder()
+                            ->limit(10)
+                            ->get();
 
-    public function affecter_colis_au_livreur(){
-        $colis_disponible=Colis::findOrFail()->where('statut_colis','En attente');
+        // Retrieve available delivery persons with status "Disponible"
+        $livreurs_disponibles = Livreur::where('statut', 'Disponible')->get();
+
+        if ($livreurs_disponibles->isEmpty()) {
+            return view('colis.affectation_result')->with('message', "Aucun livreur disponible pour l'affectation des colis.");
+        }
+
+        $assignedColis = []; // Array to store assigned parcels
+
+        foreach ($colis_disponibles as $colis) {
+            // Select a random available delivery person
+            $livreur = $livreurs_disponibles->random();
+
+            // Assign the parcel to the delivery person
+            $colis->livreur_id = $livreur->id;
+            $colis->statut_colis = 'En cours de livraison';
+            $colis->save();
+
+            // Update the delivery person's status to "Occupied"
+            $livreur->statut = 'Occupé';
+            $livreur->save();
+
+            // Add the assigned parcel to the array
+            $assignedColis[] = $colis;
+        }
+
+        // Return the view with the assigned parcels
+        return view('livreur.dashboard', [
+            'assignedColis' => $assignedColis,
+            'message' => "10 colis ont été affectés aux livreurs disponibles."
+        ]);
     }
+
+
+// Méthode pour marquer un colis comme livré et mettre à jour le statut du livreur si nécessaire
+public function terminer_livraison($livreur_id)
+{
+    // Récupérer tous les colis en cours de livraison pour le livreur
+    $colis_en_cours = Colis::where('livreur_id', $livreur_id)
+                           ->where('statut_colis', 'En cours')
+                           ->get();
+
+    foreach ($colis_en_cours as $colis) {
+        // Marquer le colis comme "Livré"
+        $colis->statut_colis = 'Livré';
+        $colis->save();
+    }
+
+    // Vérifier si tous les colis du livreur sont livrés
+    $colis_restants = Colis::where('livreur_id', $livreur_id)
+                           ->where('statut_colis', 'En cours de livraison')
+                           ->exists();
+
+    // Si le livreur n'a plus de colis en cours de livraison, le remettre en statut "Disponible"
+    if (!$colis_restants) {
+        $livreur = Livreur::find($livreur_id);
+        $livreur->statut = 'Disponible';
+        $livreur->save();
+    }
+
+    return "Le livreur a terminé ses livraisons et est maintenant disponible.";
+}
+// public function confirmer_envoi_colis($colis_id, $confirmation, $raison = null)
+// {
+//     // Récupérer le colis
+//     $colis = Colis::find($colis_id);
+
+//     if (!$colis) {
+//         return "Colis non trouvé.";
+//     }
+
+//     if ($confirmation) {
+//         // Si le livreur confirme l'envoi
+//         $colis->statut_colis = 'Livré';
+//         $colis->save();
+
+//         return "Le colis a été confirmé comme envoyé.";
+//     } else {
+//         // Si le livreur ne peut pas livrer le colis, enregistrer la raison
+//         if (!$raison) {
+//             return "La raison de l'échec de livraison doit être fournie.";
+//         }
+
+//         $colis->statut_colis = 'Non livré';
+//         $colis->raison_non_livraison = $raison;
+//         $colis->save();
+
+//         // Notifier l'admin et le client avec la raison
+//         $this->notifier_echec_livraison($colis, $raison);
+
+//         return "Le colis n'a pas pu être livré. La raison a été communiquée à l'admin et au client.";
+//     }
+// }
+
+// // Méthode pour notifier l'admin et le client en cas d'échec de livraison
+// protected function notifier_echec_livraison($colis, $raison)
+// {
+//     // Envoi d'une notification à l'admin
+//     Notification::send(Admin::all(), new EchecLivraisonNotification($colis, $raison));
+
+//     // Envoi d'une notification au client
+//     $client = $colis->client; // Assurez-vous que la relation entre Colis et Client est bien définie
+//     Notification::send($client, new EchecLivraisonNotification($colis, $raison));
+// }
+
 }

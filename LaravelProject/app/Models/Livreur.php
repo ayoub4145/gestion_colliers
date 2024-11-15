@@ -4,15 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Livreur extends Model
+
+class Livreur extends Authenticatable
 {
 
-    use HasFactory;
+    use HasFactory,Notifiable;
 
     protected $fillable = [
-        'nom','prenom','adresse','statut_livreur','cin', 'email','telephone','password', 'admin_id', // clé étrangère
-
+        'nom','prenom','adresse','statut_livreur','cin_livreur', 'email','telephone','password', 'admin_id', // clé étrangère
     ];
 
     public function colis()

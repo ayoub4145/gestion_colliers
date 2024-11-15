@@ -27,7 +27,8 @@ class ClientFactory extends Factory
         'nom' => fake()->lastName(),
         'prenom' => fake()->firstName(), // obtenir un prénom
         'adresse' => fake()->address(), // Ajout de l'appel de méthode pour générer une adresse
-        'cin'=>$this->faker->text(10),
+        'cin'=>$this->faker->unique()->text(10),
+        'ville'=>$this->faker->city(),
         'email' => fake()->unique()->safeEmail(),
         'telephone' => fake()->phoneNumber(), // Correction pour obtenir un numéro de téléphone
         'password' => static::$password ??= Hash::make('password'),

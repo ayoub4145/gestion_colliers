@@ -30,8 +30,12 @@ Route::middleware('auth:client')->prefix('client')->group(function () {
 
 // Authentification pour les livreurs
 Route::middleware('auth:livreur')->prefix('livreur')->group(function () {
-    Route::get('/dashboard', [LivreurController::class, 'showDash']);
-
+    Route::get('/dashboard', [LivreurController::class, 'showDash'])->name('showDashLivreur');
+    Route::post('/colis/{colis_id}/confirmer-envoi', [ColisController::class, 'confirmerEnvoiColis'])->name('colis.confirmer_envoi');
+    Route::get('/affecter-colis', [AdminController::class, 'affecter_colis_au_livreur']);
+    Route::put('/admin/update', [LivreurController::class, 'updateProfil'])->name('livreur.update');
+    Route::get('/admin/profil', [LivreurController::class, 'showProfil'])->name('livreur.profil');
+    Route::post('/logout', [LivreurController::class, 'logout'])->name('logout');
 
     // Route::post('/login', [LivreurController::class, 'login']);
     // Route::post('/logout', [LivreurController::class, 'logout']);

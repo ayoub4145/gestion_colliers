@@ -24,6 +24,7 @@ class ColisFactory extends Factory
     {
         return [
             'numero_suivi' => Str::upper(Str::random(10)), // Génère un numéro de suivi unique
+            'contenu_colis'=>$this->faker->text(200),
             'description' => $this->faker->text(200), // Génère une description aléatoire
             'expediteur_id' => Client::factory(), // Génère un expéditeur (client)
             'destinataire_id' => Client::factory(), // Génère un destinataire (client)
