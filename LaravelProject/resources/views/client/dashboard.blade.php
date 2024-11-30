@@ -25,20 +25,28 @@
                 <label for="poids" class="form-label">Poids (en kg)</label>
                 <input type="number" class="form-control" id="poids" name="poids" step="0.01" required>
             </div>
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <label for="prix" class="form-label">Prix (en MAD)</label>
                 <input type="number" class="form-control" id="prix" name="prix" step="0.01" required>
-            </div>
+            </div> --}}
 
             <!-- Informations du destinataire -->
             <h4 class="mt-4">Informations du Destinataire</h4>
             <div class="mb-3">
-                <label for="nom_destinataire" class="form-label">Nom du Destinataire</label>
+                <label for="nom_destinataire" class="form-label">Nom</label>
                 <input type="text" class="form-control" id="nom_destinataire" name="nom_destinataire" required>
+            </div>
+            <div class="mb-3">
+                <label for="nom_destinataire" class="form-label">Prénom</label>
+                <input type="text" class="form-control" id="prenom_destinataire" name="prenom_destinataire" required>
             </div>
             <div class="mb-3">
                 <label for="adresse_destinataire" class="form-label">Adresse</label>
                 <input type="text" class="form-control" id="adresse_destinataire" name="adresse_destinataire" required>
+            </div>
+            <div class="mb-3">
+                <label for="adresse_destinataire" class="form-label">Ville</label>
+                <input type="text" class="form-control" id="ville" name="ville" required>
             </div>
             <div class="mb-3">
                 <label for="telephone_destinataire" class="form-label">Numéro de Téléphone</label>

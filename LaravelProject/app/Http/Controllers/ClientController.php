@@ -31,7 +31,8 @@ class ClientController extends Controller
                     'description' => 'required|string|max:255',
                     'contenu_colis' => 'required|string|max:255',
                     'poids' => 'required|numeric',
-                    'prix' => 'required|numeric',
+                    // 'prix' => 'required|numeric',
+                    'ville'=>'required|string',
                     'nom_destinataire' => 'required|string|max:50',
                     'prenom_destinataire' => 'required|string|max:50',
                     'adresse_destinataire' => 'required|string|max:255',
@@ -53,9 +54,9 @@ class ClientController extends Controller
                 'nom' => $validatedData['nom_destinataire'],
                 'prenom' => $validatedData['prenom_destinataire'], // Remplir si nécessaire
                 'adresse' => $validatedData['adresse_destinataire'],
-                'ville' => $request->input('ville_destinataire', null), // Optionnel
-                'cin' => Str::random(8), // CIN temporaire si non fourni
-                'email' => $request->input('email_destinataire', null), // Optionnel
+                'ville' => $request->input('ville', null), // Optionnel
+                // 'cin' => Str::random(8), // CIN temporaire si non fourni
+                // 'email' => $request->input('email_destinataire', null), // Optionnel
                 'telephone' => $validatedData['telephone_destinataire'],
                 'password' => Hash::make(Str::random(8)), // Mot de passe temporaire
             ]);
@@ -66,7 +67,7 @@ class ClientController extends Controller
                 'description' => $validatedData['description'],
                 'contenu_colis' => $validatedData['contenu_colis'],
                 'poids' => $validatedData['poids'],
-                'prix' => $validatedData['prix'],
+                // 'prix' => $validatedData['prix'],
                 'expediteur_id' => Auth::id(), // ID de l'expéditeur connecté
                 'destinataire_id' => $destinataire->id,
                 'statut_colis' => 'En attente',
