@@ -165,7 +165,7 @@ class AdminController extends Controller
                             ->limit(2)
                             ->get();
 
-        // Retrieve available delivery persons with status "Disponible"
+        // Retrieve all available delivery persons with status "Disponible"
         $livreurs_disponibles = Livreur::where('statut', 'Disponible')->get();
 
         // if ($livreurs_disponibles->isEmpty()) {
@@ -200,33 +200,33 @@ class AdminController extends Controller
 
 
 // Méthode pour marquer un colis comme livré et mettre à jour le statut du livreur si nécessaire
-public function terminer_livraison($livreur_id)
-{
-    // Récupérer tous les colis en cours de livraison pour le livreur
-    $colis_en_cours = Colis::where('livreur_id', $livreur_id)
-                           ->where('statut_colis', 'En cours')
-                           ->get();
+// public function terminer_livraison($livreur_id)
+// {
+//     // Récupérer tous les colis en cours de livraison pour le livreur
+//     $colis_en_cours = Colis::where('livreur_id', $livreur_id)
+//                            ->where('statut_colis', 'En cours')
+//                            ->get();
 
-    foreach ($colis_en_cours as $colis) {
-        // Marquer le colis comme "Livré"
-        $colis->statut_colis = 'Livré';
-        $colis->save();
-    }
+//     foreach ($colis_en_cours as $colis) {
+//         // Marquer le colis comme "Livré"
+//         $colis->statut_colis = 'Livré';
+//         $colis->save();
+//     }
 
-    // Vérifier si tous les colis du livreur sont livrés
-    $colis_restants = Colis::where('livreur_id', $livreur_id)
-                           ->where('statut_colis', 'En cours de livraison')
-                           ->exists();
+//     // Vérifier si tous les colis du livreur sont livrés
+//     $colis_restants = Colis::where('livreur_id', $livreur_id)
+//                            ->where('statut_colis', 'En cours de livraison')
+//                            ->exists();
 
-    // Si le livreur n'a plus de colis en cours de livraison, le remettre en statut "Disponible"
-    if (!$colis_restants) {
-        $livreur = Livreur::find($livreur_id);
-        $livreur->statut = 'Disponible';
-        $livreur->save();
-    }
+//     // Si le livreur n'a plus de colis en cours de livraison, le remettre en statut "Disponible"
+//     if (!$colis_restants) {
+//         $livreur = Livreur::find($livreur_id);
+//         $livreur->statut = 'Disponible';
+//         $livreur->save();
+//     }
 
-    return "Le livreur a terminé ses livraisons et est maintenant disponible.";
-}
+//     return "Le livreur a terminé ses livraisons et est maintenant disponible.";
+// }
 // public function confirmer_envoi_colis($colis_id, $confirmation, $raison = null)
 // {
 //     // Récupérer le colis

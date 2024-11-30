@@ -14,6 +14,6 @@ class ColisSeeder extends Seeder
      */
     public function run(): void
     {
-        Colis::factory()->count(10)->create();
+        Colis::factory()->count(5)->create();
     }
 }

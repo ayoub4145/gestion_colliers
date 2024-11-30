@@ -23,6 +23,7 @@ Route::post('/s_inscrire',[RegisterController::class,'register'])->name('registe
 // Authentification pour les clients
 Route::middleware('auth:client')->prefix('client')->group(function () {
     Route::get('/dashboard', [ClientController::class, 'showDash']);
+    Route::post('ajouter_colis',[ClientController::class,'ajouter_colis'])->name('colis.store');
 
     // Route::post('/login', [ClientController::class, 'login']);
     // Route::post('/logout', [ClientController::class, 'logout']);
