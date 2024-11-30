@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('livreur_id')->nullable();
             $table->enum('statut_colis',['En attente','En cours','Livré'])->default('En attente');
             $table->decimal('poids',8,2);
-            $table->decimal('prix',8,2);
+            $table->decimal('prix',8,2)->nullable();
             $table->timestamp('date_livraison');
             $table->timestamp('date_reception')->nullable();
             $table->timestamps();
