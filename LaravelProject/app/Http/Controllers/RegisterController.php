@@ -50,6 +50,6 @@ class RegisterController extends Controller
         // $loginController->login($client); // Passer la requête pour se connecter automatiquement
 
         // Redirection après l'inscription
-        return redirect()->route('LoginForm')->with('success', 'Inscription réussie !');
+        return redirect()->route('showDashClient')->with('success', 'Inscription réussie !');
     }
 }

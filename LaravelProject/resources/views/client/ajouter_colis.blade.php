@@ -65,6 +65,8 @@
         <!-- Bouton de soumission -->
         <div class="text-center mt-4">
             <button type="submit" class="btn btn-primary">Ajouter le Colis</button>
+            <a href="{{route('showDashClient')}}" class="btn btn-danger">Annuler</a>
+
         </div>
     </form>
 </div>
