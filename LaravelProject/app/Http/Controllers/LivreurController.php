@@ -12,7 +12,8 @@ class LivreurController extends Controller
 {
         public function showDash()
         {
-            return view('livreur.dashboard');
+            $livreur=Auth::user();
+            return view('livreur.dashboard',compact('livreur'));
         }
         public function logout(Request $request)
         {

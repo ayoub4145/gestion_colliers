@@ -34,8 +34,8 @@
         @csrf
     </form>
     <pre>
-    {{-- <h3>Bonjour {{$livreur->nom $livreur->prenom}}</h3> --}}
-    <h1>Affectation des Colis aux Livreurs</h1>
+        <h1 class="mb-4">Bienvenue, {{ $livreur->prenom }} {{ $livreur->nom }} !</h1>
+        <h1>Affectation des Colis aux Livreurs</h1>
     </pre>
     @if (isset($message))
         <p>{{ $message }}</p>
