@@ -16,11 +16,22 @@ use Illuminate\Notifications\Notification;
 
 
 class AdminController extends Controller
-{
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:admin');
-    // }
+{    public function colisLivreur($livreurId)
+    {
+        // Récupérer le livreur par ID
+        $livreur = Livreur::find($livreurId);
+    
+        if (!$livreur) {
+            // return redirect()->route('livreur.liste')->with('error', 'Livreur introuvable.');
+        }
+    
+        // Récupérer tous les colis affectés à ce livreur
+        $colisAffectes = Colis::where('livreur_id', $livreurId)->get()?? collect();
+    
+        // Retourner la vue avec les colis affectés et les informations du livreur
+        return view('livreur.dashboard', compact('livreur', 'colisAffectes'));
+    }
+    
 
         // Affiche le formulaire de connexion
         public function showDash()
@@ -155,49 +166,33 @@ class AdminController extends Controller
 
         return redirect('/login')->with('success', 'Vous avez été déconnecté avec succès.');
     }
-
-    public function affecter_colis_au_livreur()
+    
+    public function affecterColisAuLivreur($livreurId)
     {
-        // Retrieve 10 random parcels with status "En attente"
-        $colis_disponibles = Colis::with('livreur')
-                            ->where('statut_colis', 'En attente')
-                            ->inRandomOrder()
-                            ->limit(2)
-                            ->get();
-
-        // Retrieve all available delivery persons with status "Disponible"
-        $livreurs_disponibles = Livreur::where('statut', 'Disponible')->get();
-
-        // if ($livreurs_disponibles->isEmpty()) {
-        //     return view('colis.affectation_result')->with('message', "Aucun livreur disponible pour l'affectation des colis.");
-        // }
-
-        $assignedColis = []; // Array to store assigned parcels
-
-        foreach ($colis_disponibles as $colis) {
-            // Select a random available delivery person
-            $livreur = $livreurs_disponibles->random();
-
-            // Assign the parcel to the delivery person
-            $colis->livreur_id = $livreur->id;
-            $colis->statut_colis = 'En cours';
-            $colis->save();
-
-            // Update the delivery person's status to "Occupied"
-            $livreur->statut = 'Occupé';
-            $livreur->save();
-
-            // Add the assigned parcel to the array
-            $assignedColis[] = $colis;
+        // Récupérer le livreur
+        $livreur = Livreur::find($livreurId);
+        if (!$livreur) {
+            return redirect()->back()->with('error', 'Livreur introuvable.');
         }
-
-        // Return the view with the assigned parcels
-        return view('livreur.dashboard', [
-            'assignedColis' => $assignedColis,
-            'message' => "10 colis ont été affectés aux livreurs disponibles."
-        ]);
+    
+        // Vérifier s'il existe des colis non affectés
+        $colis = Colis::whereNull('livreur_id')->first(); // Le premier colis sans livreur assigné
+        if (!$colis) {
+            return redirect()->back()->with('error', 'Aucun colis disponible à affecter.');
+        }
+    
+        // Affecter le colis au livreur
+        $colis->livreur_id = $livreur->id;
+        $colis->statut_colis = 'En attente'; // Le colis passe en statut "en attente"
+        $colis->save();
+    
+        // Mettre à jour la disponibilité du livreur
+        $livreur->statut_livreur = false; // Le livreur est désormais occupé
+        $livreur->save();
+    
+        return redirect()->route('showDashLivreur')->with('success', 'Le colis a été affecté au livreur : ' . $livreur->nom);
     }
-
+    
 
 // Méthode pour marquer un colis comme livré et mettre à jour le statut du livreur si nécessaire
 // public function terminer_livraison($livreur_id)

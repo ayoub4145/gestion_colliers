@@ -361,6 +361,9 @@ else {
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>
+                            @if($livreur->statut_livreur) <!-- Si le livreur est disponible -->
+                            <a href="{{ route('affecter.colis', $livreur->id) }}" class="btn btn-primary btn-sm">Affecter un colis</a>
+                        @endif
                         </td>
                     </tr>
                     @endforeach
