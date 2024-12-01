@@ -24,6 +24,39 @@ class ClientController extends Controller
 
             return view('client.dashboard',compact('client'));
         }
+        public function updateProfil(Request $request){
+            $client = Client::findOrFail(1);
+
+            $validatedData = $request->validate([
+                'email' => 'required|email|max:50|unique:clients,email,1',
+                'password' => 'nullable|string|min:8|max:255',
+            ]);
+
+            // Mettre à jour l'email et le mot de passe (en hachant le mot de passe)
+            $client->email = $validatedData['email'];
+            $client->password = bcrypt($validatedData['password']);
+            $client->save();
+
+            return redirect()->route('showDashClient')->with('success', 'Client modifié avec succès.');
+        }
+
+        public function logout(Request $request)
+    {
+        Auth::logout(); // Déconnecte l'utilisateur
+
+        $request->session()->invalidate(); // Invalide la session
+        $request->session()->regenerateToken(); // Régénère le token CSRF pour plus de sécurité
+
+        return redirect('/login')->with('success', 'Vous avez été déconnecté avec succès.');
+    }
+
+
+        public function showProfil() {
+            $client = Auth::user(); // On récupère l'admin avec l'ID 1
+
+            // On retourne la vue avec les données de l'admin
+            return view('client.profil', compact('client'));
+        }
         public function ajouter_colis(Request $request) {
             try {
                 $validatedData = $request->validate([
@@ -84,5 +117,33 @@ class ClientController extends Controller
         public function showFormAjtColis(){
             return view('client.ajouter_colis');
         }
+        public function getColisByNumeroSuivi(Request $request)
+        {
+            $client = Auth::user(); // Récupération de l'utilisateur connecté
+            $query = $request->input('query');
 
+            $colis = Colis::with(['expediteur', 'destinataire'])->where('numero_suivi', $query)->first();
+
+            if ($colis) {
+                $colisData = [
+                    'numero_suivi' => $colis->numero_suivi,
+                    'description' => $colis->description,
+                    'contenu_colis' => $colis->contenu_colis,
+                    'statut_colis' => $colis->statut_colis,
+                    'poids' => $colis->poids,
+                    'expediteur_nom' => $colis->expediteur->nom ?? 'Non spécifié',
+                    'expediteur_prenom' => $colis->expediteur->prenom ?? '',
+                    'destinataire_nom' => $colis->destinataire->nom ?? 'Non spécifié',
+                    'destinataire_prenom' => $colis->destinataire->prenom ?? '',
+                    'date_livraison' => $colis->date_livraison,
+                    'date_reception'=>$colis->date_reception ?? 'Non spécifié',
+                ];
+
+                // Retourne la vue avec le client et les données du colis
+                return view('client.dashboard', compact('client', 'colisData'));
+            } else {
+                // Si aucun colis n'est trouvé, retourne la vue avec un message d'erreur
+                return redirect()->back()->with('error', 'Colis introuvable avec ce numéro de suivi.');
+            }
+        }
 }

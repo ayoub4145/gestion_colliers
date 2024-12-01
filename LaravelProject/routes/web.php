@@ -25,9 +25,11 @@ Route::middleware('auth:client')->prefix('client')->group(function () {
     Route::get('/dashboard', [ClientController::class, 'showDash'])->name('showDashClient');
     Route::post('/ajouter_colis',[ClientController::class,'ajouter_colis'])->name('colis.store');
     Route::get('/ajouter_colis',[ClientController::class,'showFormAjtColis'])->name('form_ajt_colis');
+    Route::post('/search', [ClientController::class, 'getColisByNumeroSuivi'])->name('searchC');
+    Route::post('/logout', [ClientController::class, 'logout']);
+    Route::get('/profil', [ClientController::class, 'showProfil'])->name('client.profil');
+    Route::put('/update', [ClientController::class, 'updateProfil'])->name('client.update');
 
-    // Route::post('/login', [ClientController::class, 'login']);
-    // Route::post('/logout', [ClientController::class, 'logout']);
 });
 
 // Authentification pour les livreurs
