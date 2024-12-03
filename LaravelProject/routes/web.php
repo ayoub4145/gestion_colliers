@@ -6,6 +6,9 @@ use App\Http\Controllers\LivreurController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ColisController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ReclamationController;
+
+use App\Models\Livreur;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Middleware\Authenticate;
 Route::get('/', function () {
@@ -36,9 +39,14 @@ Route::middleware('auth:client')->prefix('client')->group(function () {
 Route::middleware('auth:livreur')->prefix('livreur')->group(function () {
     Route::get('/dashboard', [LivreurController::class, 'showDash'])->name('showDashLivreur');
     Route::post('/colis/{colis_id}/confirmer-envoi', [ColisController::class, 'confirmerEnvoiColis'])->name('colis.confirmer_envoi');
-    Route::get('/affecter-colis/{livreur}', [AdminController::class, 'affecterColisAuLivreur'])->name('affecter.colis');
+    Route::get('/dashboard/{livreur}', [AdminController::class, 'affecterColisAuLivreur'])->name('affecter.colis');
+    Route::post('/signaler-occupe', [LivreurController::class, 'signalerOccupé'])->name('affecter.livreur');
     Route::put('/admin/update', [LivreurController::class, 'updateProfil'])->name('livreur.update');
     Route::get('/admin/profil', [LivreurController::class, 'showProfil'])->name('livreur.profil');
+    Route::get('/accepter_livraison/{colis}',[LivreurController::class,'accepterLivraison'])->name('accepter.livraison');
+    Route::get('/livraison',[LivreurController::class,'estLivre'])->name('reclamer.livraison');
+    Route::post('/reclamation/store', [ReclamationController::class, 'store'])->name('reclamation.store');
+
     Route::post('/logout', [LivreurController::class, 'logout'])->name('logout');
 
     // Route::post('/login', [LivreurController::class, 'login']);

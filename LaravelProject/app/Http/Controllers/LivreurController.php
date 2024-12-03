@@ -6,14 +6,24 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth; // Pour l'authentification
 use Illuminate\Validation\ValidationException;
-use App\Models\Livreur;
+use App\Models\Colis;
+use App\Notifications\ColisAffecteNotification;
+
 
 class LivreurController extends Controller
 {
         public function showDash()
         {
             $livreur=Auth::user();
-            return view('livreur.dashboard',compact('livreur'));
+            if (!$livreur) {
+                return redirect()->route('LoginForm')->with('error', 'Veuillez vous connecter.');
+            }
+
+            // Récupérer les colis affectés au livreur
+            $assignedColis = Colis::where('livreur_id', $livreur->id)->get();
+             // Envoyer la notification par email
+            //  $livreur->notify(new ColisAffecteNotification([$assignedColis]));
+            return view('livreur.dashboard',compact('livreur','assignedColis'));
         }
         public function logout(Request $request)
         {
@@ -57,5 +67,42 @@ class LivreurController extends Controller
 
             return redirect()->route('showDashLivreur')->with('success', 'Profil modifié avec succès.');
         }
+        public function signalerOccupé()
+        {
+            // Trouver le livreur par son ID
+            $livreur = Auth::user();
 
-}
+            if (!$livreur) {
+                return redirect()->back()->with('error', 'Livreur introuvable.');
+            }
+
+            // Mettre le statut du livreur à occupé
+            $livreur->statut_livreur = false;
+            // $livreur->save();
+
+            return redirect()->back()->with('success', 'Votre statut a été mis à jour comme "Occupé".');
+        }
+        public function accepterLivraison(Colis $colis)
+        {
+            $livreur = Auth::user();
+        
+            if (!$livreur) {
+                return redirect()->route('LoginForm')->with('error', 'Veuillez vous connecter.');
+            }
+        
+            // Mettre à jour le statut du colis
+            $colis->statut_colis = "En cours";
+            $colis->save();
+        
+            // Ajouter un message flash
+            session()->flash('succes', 'Le colis est maintenant en cours d\'envoi.');
+        
+            // Récupérer les colis affectés au livreur pour le tableau de bord
+            $assignedColis = Colis::where('livreur_id', $livreur->id)->get();
+        
+            return view('livreur.dashboard', compact('colis', 'livreur', 'assignedColis'));
+        }
+        public function estLivre(){
+            return view('livreur.reclamationForm');
+        }
+        }

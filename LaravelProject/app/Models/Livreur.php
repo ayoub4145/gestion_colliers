@@ -14,7 +14,7 @@ class Livreur extends Authenticatable
     use HasFactory,Notifiable;
 
     protected $fillable = [
-        'nom','prenom','adresse','statut_livreur','cin_livreur', 'email','telephone','password', 'admin_id', // clé étrangère
+        'nom','prenom','adresse','statut_livreur','cin_livreur', 'email','telephone','password','reclamation', 'admin_id', // clé étrangère
     ];
 
     public function colis()

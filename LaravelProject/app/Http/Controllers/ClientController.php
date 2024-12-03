@@ -146,4 +146,5 @@ class ClientController extends Controller
                 return redirect()->back()->with('error', 'Colis introuvable avec ce numéro de suivi.');
             }
         }
+        
 }

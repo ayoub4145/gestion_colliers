@@ -361,8 +361,9 @@ else {
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>
+                            {{-- changer affecter.colis ICI et ajouter autre route pour mettre un livreur comme occ --}}
                             @if($livreur->statut_livreur) <!-- Si le livreur est disponible -->
-                            <a href="{{ route('affecter.colis', $livreur->id) }}" class="btn btn-primary btn-sm">Affecter un colis</a>
+                            <a href="{{ route('affecter.livreur', $livreur->id) }}" class="btn btn-primary btn-sm">Affecter un colis</a>
                         @endif
                         </td>
                     </tr>

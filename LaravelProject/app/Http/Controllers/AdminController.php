@@ -20,18 +20,18 @@ class AdminController extends Controller
     {
         // Récupérer le livreur par ID
         $livreur = Livreur::find($livreurId);
-    
+
         if (!$livreur) {
             // return redirect()->route('livreur.liste')->with('error', 'Livreur introuvable.');
         }
-    
+
         // Récupérer tous les colis affectés à ce livreur
         $colisAffectes = Colis::where('livreur_id', $livreurId)->get()?? collect();
-    
+
         // Retourner la vue avec les colis affectés et les informations du livreur
         return view('livreur.dashboard', compact('livreur', 'colisAffectes'));
     }
-    
+
 
         // Affiche le formulaire de connexion
         public function showDash()
@@ -166,33 +166,42 @@ class AdminController extends Controller
 
         return redirect('/login')->with('success', 'Vous avez été déconnecté avec succès.');
     }
-    
-    public function affecterColisAuLivreur($livreurId)
-    {
-        // Récupérer le livreur
-        $livreur = Livreur::find($livreurId);
-        if (!$livreur) {
-            return redirect()->back()->with('error', 'Livreur introuvable.');
-        }
-    
-        // Vérifier s'il existe des colis non affectés
-        $colis = Colis::whereNull('livreur_id')->first(); // Le premier colis sans livreur assigné
-        if (!$colis) {
-            return redirect()->back()->with('error', 'Aucun colis disponible à affecter.');
-        }
-    
-        // Affecter le colis au livreur
-        $colis->livreur_id = $livreur->id;
-        $colis->statut_colis = 'En attente'; // Le colis passe en statut "en attente"
-        $colis->save();
-    
-        // Mettre à jour la disponibilité du livreur
-        $livreur->statut_livreur = false; // Le livreur est désormais occupé
-        $livreur->save();
-    
-        return redirect()->route('showDashLivreur')->with('success', 'Le colis a été affecté au livreur : ' . $livreur->nom);
-    }
-    
+
+//     public function affecterColisAuLivreur($livreurId)
+//     {
+//         // Récupérer le livreur
+//         $livreur = Livreur::find($livreurId);
+//         if (!$livreur) {
+//             return redirect()->back()->with('error', 'Livreur introuvable.');
+//         }
+
+//         // Vérifier s'il existe des colis non affectés
+//         $colis = Colis::whereNull('livreur_id')->first(); // Le premier colis sans livreur assigné
+//         if (!$colis) {
+//             return redirect()->back()->with('error', 'Aucun colis disponible à affecter.');
+//         }
+
+//         // Affecter le colis au livreur
+//         $colis->livreur_id = $livreur->id;
+//         $colis->statut_colis = 'En attente'; // Le colis passe en statut "en attente"
+//         if (!$colis->save()) {
+//             dd('Erreur lors de la sauvegarde du colis');
+//         }
+//         $colis->save();
+
+//         // Mettre à jour la disponibilité du livreur
+//         // $livreur->statut_livreur = false; // Le livreur est désormais occupé
+//         if (!$livreur->save()) {
+//             dd('Erreur lors de la mise à jour du livreur');
+//         }
+//         // $livreur->save();
+//  // Récupérer les colis affectés au livreur
+//  $assignedColis = Colis::where('livreur_id', $livreur->id)->get();
+//  // Rediriger vers la vue du tableau de bord avec les données
+//  return view('livreur.dashboard', compact('livreur', 'assignedColis'))
+//      ->with('success', 'Colis affecté avec succès.');
+//     }
+
 
 // Méthode pour marquer un colis comme livré et mettre à jour le statut du livreur si nécessaire
 // public function terminer_livraison($livreur_id)
@@ -264,5 +273,17 @@ class AdminController extends Controller
 //     $client = $colis->client; // Assurez-vous que la relation entre Colis et Client est bien définie
 //     Notification::send($client, new EchecLivraisonNotification($colis, $raison));
 // }
+// public function affecterLiveur($livreur_id){
+//      // Trouver le livreur par son ID
+//      $livreur = Livreur::find($livreurId);
 
+//      if (!$livreur) {
+//          return redirect()->back()->with('error', 'Livreur introuvable.');
+//      }
+
+//      // Vérifier si le livreur est disponible
+//      if (!$livreur->statut_livreur) {
+//          return redirect()->back()->with('error', 'Ce livreur est déjà occupé.');
+//      }
+// }
 }
