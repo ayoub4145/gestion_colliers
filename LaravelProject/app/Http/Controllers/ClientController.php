@@ -47,7 +47,7 @@ class ClientController extends Controller
         $request->session()->invalidate(); // Invalide la session
         $request->session()->regenerateToken(); // Régénère le token CSRF pour plus de sécurité
 
-        return redirect('/login')->with('success', 'Vous avez été déconnecté avec succès.');
+        return redirect('/')->with('success', 'Vous avez été déconnecté avec succès.');
     }
 
 
