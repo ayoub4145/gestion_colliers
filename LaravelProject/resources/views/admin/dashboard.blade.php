@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/e39df68516.js" crossorigin="anonymous"></script>
     <style>
+/* Result container for search results */
 .result-container {
     background-color: #f0f4f8;
     border: 1px solid #d1d5db;
@@ -20,6 +21,7 @@
     font-family: Arial, sans-serif;
 }
 
+/* Close button for result container */
 .close-button {
     position: absolute;
     top: 10px;
@@ -34,83 +36,160 @@
 .close-button:hover {
     color: #333;
 }
+
+/* Style for the search input */
 .input {
   color: black;
   font: 1em/1.5 Hind, sans-serif;
-}
-
-form, .input, .caret {
-  margin: auto;
-}
-
-form {
-  position: relative;
+  padding: 0.75em 1em;
+  border-radius: 8px;
+  box-shadow: 0 0 0 0.25em inset #ccc;
   width: 100%;
-  max-width: 17em;
-}
-
-.input, .caret {
-  display: block;
-  transition: all calc(1s * 0.5) linear;
-}
-
-.input {
-  background: transparent;
-  border-radius: 50%;
-  box-shadow: 0 0 0 0.25em inset;
-  caret-color: #255ff4;
-  width: 2em;
-  height: 2em;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  margin-top: 20px;
 }
 
 .input:focus, .input:valid {
-  background: powderblue;
+  background: #e0f7fa;
   border-radius: 0.25em;
   box-shadow: none;
   padding: 0.75em 1em;
-  transition-duration: calc(1s * 0.25);
-  transition-delay: calc(1s * 0.25);
   width: 100%;
-  height: 3em;
 }
 
 .input:focus {
   animation: showCaret 1s steps(1);
   outline: transparent;
-
 }
 
-.input:focus + .caret, .input:valid + .caret {
-  animation: handleToCaret 1s linear;
-  background: transparent;
-  width: 1px;
-  height: 1.5em;
-  transform: translate(0,-1em) rotate(-180deg) translate(7.5em,-0.25em);
-}
-
-.input::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
+/* Style for the form label */
 label {
-  color: #e3e4e8;
-  overflow: hidden;
-  position: absolute;
-  width: 0;
-  height: 0;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+  display: inline-block;
 }
 
-.caret {
-  background: black;
-  border-radius: 0 0 0.125em 0.125em;
-  margin-bottom: -0.6em;
-  width: 0.25em;
-  height: 1em;
-  transform: translate(0,-1em) rotate(-45deg) translate(0,0.875em);
-  transform-origin: 50% 0;
+/* Profile card styles */
+.card {
+  width: 230px;
+  height: 280px;
+  border-radius: 2em;
+  padding: 10px;
+  background-color: #191919;
+  box-shadow: 5px 5px 30px rgb(4, 4, 4), -5px -5px 30px rgb(57, 57, 57);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 5px 5px 40px rgb(4, 4, 4), -5px -5px 40px rgb(57, 57, 57);
+}
+
+/* Profile image */
+.profileimage {
+  background-color: transparent;
+  border: none;
+  margin-top: 20px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.pfp {
+  border-radius: 50%;
+  fill: white;
+}
+
+/* Profile name styling */
+.Name {
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+/* Profile link and logout link */
+.profil-link, .logout-link {
+    position: absolute;
+    top: 20px;
+    color: #007bff;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.logout-link {
+    right: 20px;
+}
+
+.profil-link:hover, .logout-link:hover {
+    color: #0056b3;
+}
+
+/* Pagination buttons */
+.d-flex.justify-content-center {
+  margin-top: 20px;
+}
+
+/* Hover effect for table rows */
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+/* Table styling */
+.table-bordered th, .table-bordered td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+.table th {
+    background-color: #f1f1f1;
+    color: #333;
+}
+
+/* Button styles */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Button for 'Retour à la liste' */
+#returnToList {
+    display: none;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .table {
+        font-size: 12px;
+    }
+
+    .result-container {
+        max-width: 100%;
+    }
+
+    .card {
+        width: 200px;
+        height: 250px;
+    }
+
+    .profileimage {
+        width: 80px;
+        height: 80px;
+    }
+
+    .input {
+        font-size: 14px;
+    }
 }
 
 /* Animations */
@@ -123,102 +202,6 @@ label {
     caret-color: #255ff4;
   }
 }
-
-@keyframes handleToCaret {
-  from {
-    background: currentColor;
-    width: 0.25em;
-    height: 1em;
-    transform: translate(0,-1em) rotate(-45deg) translate(0,0.875em);
-  }
-
-  25% {
-    background: currentColor;
-    width: 0.25em;
-    height: 1em;
-    transform: translate(0,-1em) rotate(-180deg) translate(0,0.875em);
-  }
-
-  50%, 62.5% {
-    background: #255ff4;
-    width: 1px;
-    height: 1.5em;
-    transform: translate(0,-1em) rotate(-180deg) translate(7.5em,2.5em);
-  }
-
-  75%, 99% {
-    background: #255ff4;
-    width: 1px;
-    height: 1.5em;
-    transform: translate(0,-1em) rotate(-180deg) translate(7.5em,-0.25em);
-  }
-
-  87.5% {
-    background: #255ff4;
-    width: 1px;
-    height: 1.5em;
-    transform: translate(0,-1em) rotate(-180deg) translate(7.5em,0.125em);
-  }
-
-  to {
-    background: transparent;
-    width: 1px;
-    height: 1.5em;
-    transform: translate(0,-1em) rotate(-180deg) translate(7.5em,-0.25em);
-  }
-}
-/* From Uiverse.io by aadium */
-.card {
-  width: 230px;
-  height: 280px;
-  border-radius: 2em;
-  padding: 10px;
-  background-color: #191919;
-  box-shadow: 5px 5px 30px rgb(4, 4, 4),
-                   -5px -5px 30px rgb(57, 57, 57);
-}
-
-.profileimage {
-  background-color: transparent;
-  border: none;
-  margin-top: 20px;
-  border-radius: 5em;
-  width: 100px;
-  height: 100px;
-}
-
-.pfp {
-  border-radius: 35em;
-  fill: white;
-}
-
-.Name {
-  color: white;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  padding: 15px;
-  font-size: 20px;
-  margin-top: 10px;
-}
-.profil-link {
-    position: absolute;
-            top: 20px;
-            left: 20px;
-    text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-}
-.logout-link{
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-        }
-
-        .logout-link:hover,.profil-link:hover {
-            color: #0056b3;
-        }
     </style>
 </head>
 <body>

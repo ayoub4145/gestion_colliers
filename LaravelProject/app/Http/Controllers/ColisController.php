@@ -27,6 +27,7 @@ class ColisController extends Controller
                     'description' => $colis->description,
                     'contenu_colis' => $colis->contenu_colis,
                     'statut_colis' => $colis->statut_colis,
+                    'reclamation' =>$colis->reclamation,
                     'poids' => $colis->poids,
                     'prix' => $colis->prix,
                     'expediteur_nom' => $colis->expediteur->nom ?? 'Non spécifié',

@@ -85,24 +85,68 @@ class LivreurController extends Controller
         public function accepterLivraison(Colis $colis)
         {
             $livreur = Auth::user();
-        
+
             if (!$livreur) {
                 return redirect()->route('LoginForm')->with('error', 'Veuillez vous connecter.');
             }
-        
+
             // Mettre à jour le statut du colis
             $colis->statut_colis = "En cours";
             $colis->save();
-        
+
             // Ajouter un message flash
             session()->flash('succes', 'Le colis est maintenant en cours d\'envoi.');
-        
+
             // Récupérer les colis affectés au livreur pour le tableau de bord
             $assignedColis = Colis::where('livreur_id', $livreur->id)->get();
-        
+
             return view('livreur.dashboard', compact('colis', 'livreur', 'assignedColis'));
+
         }
-        public function estLivre(){
-            return view('livreur.reclamationForm');
+        public function afficherReclamationForm(){
+             // Récupérer le livreur connecté
+                $livreur = Auth::user();
+
+                // Récupérer le colis associé au livreur connecté
+                $colis = Colis::where('livreur_id', $livreur->id)->first();
+
+                // Vérifier si un colis est trouvé, sinon retourner une erreur ou un message
+                if (!$colis) {
+                    return back()->with('error', 'Aucun colis associé à ce livreur.');
+                }
+
+            return view('livreur.reclamationForm',compact('colis'));
         }
+        public function estLivre(Request $request)
+        {
+            //dd($request->all());
+
+            // Validation des données
+            $validated = $request->validate([
+                'colis_id' => 'required|exists:colis,id',
+                'status' => 'required|in:oui,non',
+                'probleme' => 'nullable|string|max:255',
+            ]);
+        
+            // Trouver le colis
+            $colis = Colis::findOrFail($validated['colis_id']);
+        
+            // Mettre à jour le statut du colis basé sur 'status'
+            if ($validated['status'] === 'oui') {
+                $colis->statut_colis = 'Livré'; // Doit correspondre exactement à une des valeurs de l'enum
+            } else {
+                $colis->statut_colis = 'En attente'; // Ou tout autre valeur pertinente
+            }
+        
+            // Ajouter une réclamation si nécessaire
+            $colis->reclamation = $validated['probleme'] ?? 'Aucun problème spécifié.';
+        
+            // Sauvegarder les modifications
+            $colis->save();
+        
+            // Rediriger ou retourner une vue avec un message
+            return redirect()->route('showDashLivreur')->with('success', 'Le statut du colis a été mis à jour avec succès.');
         }
+
+        
+            }

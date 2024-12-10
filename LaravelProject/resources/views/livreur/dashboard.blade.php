@@ -6,28 +6,164 @@
     {{-- <meta http-equiv="refresh" content="3;url={{route('showDashLivreur')}}"> --}}
     <meta charset="UTF-8">
     <style>
-        .profil-link {
-    position: absolute;
-            top: 20px;
-            left: 20px;
-    text-decoration: none;
+        /* Général */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+    
+        h1, h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+    
+        h1 {
+            color: #4CAF50;
+        }
+    
+        h2 {
+            margin-top: 40px;
             color: #007bff;
-            font-weight: bold;
-}
-.logout-link{
+        }
+    
+        p {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+    
+        /* Liens */
+        .profil-link, .logout-link {
             position: absolute;
             top: 20px;
-            right: 20px;
+            font-weight: bold;
             text-decoration: none;
-            color: #007bff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+    
+        .profil-link {
+            left: 20px;
+            color: #fff;
+            background-color: #007bff;
+        }
+    
+        .logout-link {
+            right: 20px;
+            color: #fff;
+            background-color: #dc3545;
+        }
+    
+        .profil-link:hover {
+            background-color: #0056b3;
+        }
+    
+        .logout-link:hover {
+            background-color: #c82333;
+        }
+    
+        /* Tableau */
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    
+        th, td {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    
+        th {
+            background-color: #007bff;
+            color: white;
             font-weight: bold;
         }
-
-        .logout-link:hover,.profil-link:hover {
-            color: #0056b3;
+    
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    
+        tr:hover {
+            background-color: #e9ecef;
+        }
+    
+        /* Boutons */
+        button, a {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 5px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+    
+        button {
+            border: none;
+            color: white;
+        }
+    
+        button.btn-success {
+            background-color: #28a745;
+        }
+    
+        button.btn-success:hover {
+            background-color: #218838;
+        }
+    
+        button.btn-warning {
+            background-color: #ffc107;
+            color: black;
+        }
+    
+        button.btn-warning:hover {
+            background-color: #e0a800;
+        }
+    
+        a {
+            color: #007bff;
+            background-color: #f8f9fa;
+            border: 1px solid #007bff;
+        }
+    
+        a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+    
+        /* Messages */
+        .alert {
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 14px;
+        }
+    
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
     </style>
-
+    
 </head>
 <body>
     <a href="{{ route('livreur.profil') }}" class="profil-link" style="text-decoration: none;">Profil</a>

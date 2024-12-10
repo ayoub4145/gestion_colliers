@@ -12,6 +12,7 @@ class Colis extends Model
     protected $fillable = [
         'description',
         'statut_colis',
+        'reclamation',
         'contenu_colis',
         'expediteur_id',
         'destinataire_id',

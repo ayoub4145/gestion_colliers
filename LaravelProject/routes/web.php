@@ -44,8 +44,8 @@ Route::middleware('auth:livreur')->prefix('livreur')->group(function () {
     Route::put('/admin/update', [LivreurController::class, 'updateProfil'])->name('livreur.update');
     Route::get('/admin/profil', [LivreurController::class, 'showProfil'])->name('livreur.profil');
     Route::get('/accepter_livraison/{colis}',[LivreurController::class,'accepterLivraison'])->name('accepter.livraison');
-    Route::get('/livraison',[LivreurController::class,'estLivre'])->name('reclamer.livraison');
-    Route::post('/reclamation/store', [ReclamationController::class, 'store'])->name('reclamation.store');
+    Route::get('/reclamation-form',[LivreurController::class,'afficherReclamationForm'])->name('reclamer.livraison');
+    Route::post('/reclamation/store', [LivreurController::class, 'estLivre'])->name('reclamer.store');
 
     Route::post('/logout', [LivreurController::class, 'logout'])->name('logout');
 
