@@ -155,8 +155,8 @@
     </head>
 <body class="container mt-5">
     <a href="{{ route('client.profil') }}" class="profil-link" style="text-decoration: none;">Profil</a>
-    <a href="{{ route('logout') }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout-link">Se déconnecter &nbsp;<i class="fa-solid fa-right-from-bracket"></i></a>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    <a href="{{ route('logoutClient') }}"onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout-link">Se déconnecter &nbsp;<i class="fa-solid fa-right-from-bracket"></i></a>
+    <form id="logout-form" action="{{ route('logoutClient') }}" method="POST" style="display: none;">
         @csrf
     </form>
     <h1 class="mb-4">Bienvenue, {{ $client->prenom }} {{ $client->nom }} !</h1>

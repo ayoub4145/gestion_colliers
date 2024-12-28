@@ -29,7 +29,7 @@ Route::middleware('auth:client')->prefix('client')->group(function () {
     Route::post('/ajouter_colis',[ClientController::class,'ajouter_colis'])->name('colis.store');
     Route::get('/ajouter_colis',[ClientController::class,'showFormAjtColis'])->name('form_ajt_colis');
     Route::post('/search', [ClientController::class, 'getColisByNumeroSuivi'])->name('searchC');
-    Route::post('/logout', [ClientController::class, 'logout']);
+    Route::post('/logout', [ClientController::class, 'logout'])->name('logoutClient');
     Route::get('/profil', [ClientController::class, 'showProfil'])->name('client.profil');
     Route::put('/update', [ClientController::class, 'updateProfil'])->name('client.update');
 
@@ -68,7 +68,7 @@ Route::middleware('auth:livreur')->prefix('livreur')->group(function () {
     Route::post('/search', [ColisController::class, 'getColisByNumeroSuivi'])->name('search');
     Route::get('/admin/profil', [AdminController::class, 'showProfil'])->name('admin.profil');
     Route::put('/admin/update', [AdminController::class, 'updateProfil'])->name('admin.update');
-    Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
+    Route::post('/logout', [AdminController::class, 'logout'])->name('logoutAdmin');
 
 
     });

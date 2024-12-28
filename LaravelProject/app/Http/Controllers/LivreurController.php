@@ -78,7 +78,7 @@ class LivreurController extends Controller
 
             // Mettre le statut du livreur à occupé
             $livreur->statut_livreur = false;
-            // $livreur->save();
+            //$livreur->save();
 
             return redirect()->back()->with('success', 'Votre statut a été mis à jour comme "Occupé".');
         }
