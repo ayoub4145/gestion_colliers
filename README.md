@@ -6,7 +6,7 @@ Ce projet est une application web développée avec Laravel pour la gestion des 
 
 **Fonctionnalités**
 
--Authentification des administrateurs et des livreurs
+-Authentification des administrateurs, des livreurs et des clients
 
 -Gestion des colis (création, mise à jour, suppression)
 
