@@ -12,9 +12,9 @@ Ce projet est une application web développée avec Laravel pour la gestion des 
 
 -Confirmation d'envoi par les livreurs
 
--Notification des raisons d'échec de livraison
+-Notification des raisons d'échec de livraison(n'est pas encore disponible)
 
--Tableau de bord pour le suivi des livraisons
+-Tableau de bord pour le suivi des livraisons/Réception des colis
 
 Technologies Utilisées
 
